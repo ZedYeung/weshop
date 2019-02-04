@@ -15,8 +15,9 @@ class ProductViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
     """
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    filter_backends = (DjangoFilterBackend,)
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter)
     filter_class = ProductFilter
+    search_fields = ('name', 'description')
 
 
 class CategoryViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
