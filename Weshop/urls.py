@@ -15,19 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from shop.views import ProductViewSet, CategoryViewSet
-
+from django.conf import settings
 
 router = DefaultRouter()
 
 router.register(r'product', ProductViewSet)
 router.register(r'category', CategoryViewSet)
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('docs/', include_docs_urls(title="Documentation"))
+    path('docs/', include_docs_urls(title="Documentation")),
+    # path('media/', serve, {'document_root': MEDIA_ROOT})
 ]
+
+if settings.DEBUG:
+    from django.conf.urls.static import static
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
