@@ -44,13 +44,14 @@ export class Product extends Component {
                 <List.Item>
                     <Card
                         hoverable
-                        // style={{ width: 200 }}
-                        // cover={<img alt={item.name} src={item.image} width="200" height="200" />}
                         cover={<img alt={item.name} src={item.image} />}
                     >
                         <Meta
-                        title={item.name}
+                            title={item.name}
                         />
+                        <div className="extra-product-info">
+                            <p className="price">${item.price}</p>
+                        </div>
                     </Card>
                 </List.Item>
                 )}
