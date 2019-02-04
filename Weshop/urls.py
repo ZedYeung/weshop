@@ -17,12 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
-from shop.views import ProductListViewSet, CategoryViewSet
+from shop.views import ProductViewSet, CategoryViewSet
 
 
 router = DefaultRouter()
 
-router.register(r'product', ProductListViewSet)
+router.register(r'product', ProductViewSet)
 router.register(r'category', CategoryViewSet)
 
 
