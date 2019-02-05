@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { List, Card } from 'antd';
 import { Ordering } from './Ordering';
+import { Filter } from './Filter';
 import {getProducts} from './api';
 
 const { Meta } = Card;
@@ -26,6 +27,15 @@ export class Product extends Component {
         })
     }
 
+    getFilter = (min_price, max_price) => {
+        this.setState({
+            min_price: min_price,
+            max_price: max_price
+        }, () => {
+            this.getData();
+        })
+    }
+
     getData =() => {
         getProducts({
             page: this.state.curPage,
@@ -46,6 +56,7 @@ export class Product extends Component {
     render() {
         return (
             <div className="products-main">
+                <Filter className="product-filter" getFilter={this.getFilter} />
                 <Ordering className="product-ordering" getOrdering={this.getOrdering}/>
                 <List className="product-list"
                     grid={{ gutter: 16, column: 4 }}
