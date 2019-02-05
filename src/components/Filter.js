@@ -16,7 +16,7 @@ class FilterForm extends Component {
         const { getFieldDecorator } = this.props.form;
 
         return (
-            <Form layout="inline" onSubmit={this.handleSubmit}>
+            <Form className="product-filter" layout="inline" onSubmit={this.handleSubmit}>
                 <Form.Item
                     label="MinPrice"
                 >

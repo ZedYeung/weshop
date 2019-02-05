@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { List, Card } from 'antd';
+import { Radio, Icon, List, Card } from 'antd';
 import { Ordering } from './Ordering';
 import { Filter } from './Filter';
 import {getProducts} from './api';
@@ -56,8 +56,10 @@ export class Product extends Component {
     render() {
         return (
             <div className="products-main">
-                <Filter className="product-filter" getFilter={this.getFilter} />
-                <Ordering className="product-ordering" getOrdering={this.getOrdering}/>
+                <Filter getFilter={this.getFilter} />
+                <Ordering  getOrdering={this.getOrdering}/>
+                
+
                 <List className="product-list"
                     grid={{ gutter: 16, column: 4 }}
                     // grid={{gutter: 0, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3,}}
