@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { Radio, Icon, List, Card } from 'antd';
+import { List, Card } from 'antd';
+import { Category } from './Category';
 import { Ordering } from './Ordering';
 import { Filter } from './Filter';
-import {getProducts} from './api';
+import { getProducts } from './api';
 
 const { Meta } = Card;
 
 export class Product extends Component {
     state = {
         curPage : 1,
+        category: '',
         ordering: '',
         min_price: '',
         max_price: '',
@@ -17,6 +19,14 @@ export class Product extends Component {
 
     componentDidMount () {
         this.getData();
+    }
+
+    getCategory = (category) => {
+        this.setState({
+            category: category
+        }, () => {
+            this.getData();
+        })
     }
 
     getOrdering = (ordering) => {
@@ -38,6 +48,7 @@ export class Product extends Component {
 
     getData =() => {
         getProducts({
+            category: this.state.category,
             page: this.state.curPage,
             ordering: this.state.ordering,
             min_price: this.state.min_price,
@@ -55,11 +66,11 @@ export class Product extends Component {
 
     render() {
         return (
-            <div className="products-main">
+            <div className="products-main">              
+                <Category getCategory={this.getCategory} />
                 <Filter getFilter={this.getFilter} />
-                <Ordering  getOrdering={this.getOrdering}/>
+                <Ordering  getOrdering={this.getOrdering} />
                 
-
                 <List className="product-list"
                     grid={{ gutter: 16, column: 4 }}
                     // grid={{gutter: 0, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3,}}
