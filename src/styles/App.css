@@ -1,5 +1,6 @@
 @import '../../node_modules/antd/dist/antd.css';
 @import "Product.css";
+@import "Ordering.css";
 
 .App {
   text-align: center;

@@ -1,0 +1,9 @@
+.ordering-radio {
+    /* display: inline-block;
+    margin-left: 5%;
+    margin-right: 5%; */
+    margin-left: 1%;
+    margin-right: 1%;
+    display: inline;
+    justify-content: left;
+}
