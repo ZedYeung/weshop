@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { List, Card } from 'antd';
+import { List, Card, Input } from 'antd';
 import { Category } from './Category';
 import { Ordering } from './Ordering';
 import { Filter } from './Filter';
 import { getProducts } from './api';
 
 const { Meta } = Card;
+const Search = Input.Search;
 
 export class Product extends Component {
     state = {
         curPage : 1,
+        search: '',
         category: '',
         ordering: '',
         min_price: '',
@@ -48,8 +50,9 @@ export class Product extends Component {
 
     getData =() => {
         getProducts({
-            category: this.state.category,
             page: this.state.curPage,
+            search: this.state.search,
+            category: this.state.category,
             ordering: this.state.ordering,
             min_price: this.state.min_price,
             max_price: this.state.max_price
@@ -64,9 +67,23 @@ export class Product extends Component {
         });
     }
 
+    handleSearch = (value) => {
+        this.setState({
+            search: value
+        }, () => {
+            this.getData();
+        })
+    }
+
     render() {
         return (
-            <div className="products-main">              
+            <div className="products-main">   
+                <Search
+                    className="product-search"
+                    placeholder="input search text"
+                    onSearch={this.handleSearch}
+                    enterButton
+                />          
                 <Category getCategory={this.getCategory} />
                 <Filter getFilter={this.getFilter} />
                 <Ordering  getOrdering={this.getOrdering} />
