@@ -1,0 +1,12 @@
+.auth-form {
+    text-align: center;
+}
+
+.login-form {
+    width: 300px;
+    margin-top: 40px;
+}
+
+.login-form-button {
+    width: 100%;
+}

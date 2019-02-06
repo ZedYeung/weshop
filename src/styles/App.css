@@ -1,8 +1,12 @@
 @import '../../node_modules/antd/dist/antd.css';
+@import "Header.css";
 @import "Category.css";
 @import "Product.css";
 @import "Ordering.css";
 @import "Filter.css";
+@import 'Login.css';
+@import 'Register.css';
+@import 'main.css';
 
 .App {
   /* text-align: center; */
