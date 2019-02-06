@@ -9,7 +9,6 @@ export class Header extends Component{
     static propTypes = {
         isLoggedIn : PropTypes.bool.isRequired,
         handleLogout: PropTypes.func.isRequired,
-        handleLogin: PropTypes.func.isRequired,
     }
 
     render(){
@@ -25,7 +24,10 @@ export class Header extends Component{
                             <Icon type="logout"/>{' '}logout
                         </a>
                     ) : (
-                        <Link className="auth" to="/login"><Icon type="login"/>{' '}login</Link>
+                        <div className="auth">
+                            <Link to="/login"><Icon type="login"/>{' '}login</Link>
+                            {' '}| <Link to="/register">register</Link>
+                        </div>
                     )
                 }
             </header>

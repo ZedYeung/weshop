@@ -21,12 +21,14 @@ class NormalLoginForm extends React.Component {
                 }).catch((error) => {
                     console.log(error);
                 });
+                this.props.history.push("/");
             }
         });
     }
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
+            <div className="auth-form">
             <Form onSubmit={this.handleSubmit} className="login-form">
                 <FormItem>
                     {getFieldDecorator('username', {
@@ -49,6 +51,8 @@ class NormalLoginForm extends React.Component {
                     Or <Link to="/register">register now!</Link>
                 </FormItem>
             </Form>
+            </div>
+
         );
     }
 }

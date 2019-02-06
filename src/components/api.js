@@ -13,5 +13,9 @@ export const getCategories = () => {
 };
 
 export const login = (params) => {
-    return axios.post(`${local_host}/login`, params)
+    return axios.post(`${local_host}/login/`, params)
+}
+
+export const register = (params) => {
+    return axios.post(`${local_host}/user/`, params)
 }
