@@ -11,3 +11,7 @@ export const getCategories = () => {
     // otherwise blocked by cors
     return axios.get(`${local_host}/category/` );
 };
+
+export const login = (params) => {
+    return axios.post(`${local_host}/login`, params)
+}
