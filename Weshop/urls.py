@@ -18,13 +18,15 @@ from django.urls import path, include
 from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
-from shop.views import ProductViewSet, CategoryViewSet
 from django.conf import settings
+from shop.views import ProductViewSet, CategoryViewSet
+from user.views import UserViewset
 
 router = DefaultRouter()
 
 router.register(r'product', ProductViewSet)
 router.register(r'category', CategoryViewSet)
+router.register(r'user', UserViewset, base_name="user")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
