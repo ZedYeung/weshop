@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
+from rest_framework_jwt.views import obtain_jwt_token
 from django.conf import settings
 from shop.views import ProductViewSet, CategoryViewSet
 from user.views import UserViewset
@@ -32,6 +33,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('docs/', include_docs_urls(title="Documentation")),
+    path('login/', obtain_jwt_token),
     # path('media/', serve, {'document_root': MEDIA_ROOT})
 ]
 
