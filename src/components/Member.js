@@ -184,4 +184,4 @@ class UserProfileForm extends Component {
     }
 }
 
-export const Home = Form.create()(UserProfileForm);
+export const Member = Form.create()(UserProfileForm);
