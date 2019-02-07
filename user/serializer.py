@@ -1,20 +1,17 @@
-import re
 from rest_framework import serializers
-from django.contrib.auth import get_user_model
-from datetime import datetime
-from datetime import timedelta
 from rest_framework.validators import UniqueValidator
+from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserProfileSerializer(serializers.ModelSerializer):
     """
     User Profile
     """
     class Meta:
         model = User
-        fields = ("name", "gender", "birthday", "email", "mobile")
+        fields = ("first_name", "last_name", "birthday", "gender", "mobile", "email")
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
