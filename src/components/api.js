@@ -23,3 +23,7 @@ export const register = (params) => {
 export const getProduct = (productID) => {
     return axios.get(`${local_host}/product/${productID}/`)
 }
+
+export const getUserProfile = () => {
+    return axios.get(`${local_host}/user/1/`)
+}

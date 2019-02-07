@@ -18,11 +18,14 @@ export class Header extends Component{
                 <h1 className="App-title">Weshop</h1>
                 {
                     this.props.isLoggedIn ? (
-                        <a href=""
-                            className="auth"
-                            onClick={this.props.handleLogout}>
-                            <Icon type="logout"/>{' '}logout
-                        </a>
+                        <div className="auth">
+                            <Link to="/homepage"><Icon type="user" />{' '}Account</Link>
+                            {' '}|
+                            <a href=""
+                                onClick={this.props.handleLogout}>
+                                <Icon type="logout"/>{' '}logout
+                            </a>
+                        </div>
                     ) : (
                         <div className="auth">
                             <Link to="/login"><Icon type="login"/>{' '}login</Link>

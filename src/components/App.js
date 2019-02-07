@@ -4,10 +4,11 @@ import '../styles/App.css';
 import { Header } from './Header';
 import { Navbar } from './Navbar';
 import { ProductList } from './ProductList';
-import { Footer } from './Footer';
 import { Product } from './Product';
 import { Login } from './Login';
 import { Register } from './Register';
+import { Home } from './Home';
+import { Footer } from './Footer';
 import { TOKEN_KEY } from '../.env'
 
 
@@ -46,6 +47,7 @@ class App extends Component {
             <Route exact path="/" component={ProductList} />
             <Route path="/register" component={Register}/>
             <Route path="/login" render={this.getLogin}/>
+            <Route path="/homepage" component={Home} /> 
             <Route path="/product/:productID" render={this.getProduct} /> 
             <Route component={ProductList} />
         </Switch>
