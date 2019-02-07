@@ -19,3 +19,7 @@ export const login = (params) => {
 export const register = (params) => {
     return axios.post(`${local_host}/user/`, params)
 }
+
+export const getProduct = (productID) => {
+    return axios.get(`${local_host}/product/${productID}/`)
+}
