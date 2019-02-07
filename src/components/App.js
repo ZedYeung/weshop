@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import {Switch, Route, Redirect} from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import '../styles/App.css';
-import {Main} from './main';
+import { Header } from './Header';
+import { Navbar } from './Navbar';
+import { ProductList } from './ProductList';
+import { Footer } from './Footer';
 import { Product } from './Product';
-import {Login} from './Login';
-import {Register} from './Register';
-import {TOKEN_KEY} from '../.env'
+import { Login } from './Login';
+import { Register } from './Register';
+import { TOKEN_KEY } from '../.env'
 
 
 class App extends Component {
@@ -29,10 +32,6 @@ class App extends Component {
     return this.state.isLoggedIn ? <Redirect to="/"/> : <Login {...props} handleLogin={this.handleLogin}/>;
   }
 
-  getMain = () => {
-    return <Main isLoggedIn={this.state.isLoggedIn} handleLogout={this.handleLogout} />
-  }
-
   getProduct = (props) => {
       return <Product productID={props.match.params && props.match.params.productID }/>
   }
@@ -40,13 +39,17 @@ class App extends Component {
   render() {
     return (
       <section className="App">
+        <Header isLoggedIn={this.state.isLoggedIn} handleLogout={this.handleLogout} />
+        <Navbar/>
         <Switch>
-            <Route exact path="/" render={this.getMain} />
+            {/* <Route exact path="/" render={this.getMain} /> */}
+            <Route exact path="/" component={ProductList} />
             <Route path="/register" component={Register}/>
             <Route path="/login" render={this.getLogin}/>
             <Route path="/product/:productID" render={this.getProduct} /> 
-            <Route render={this.getMain} />
+            <Route component={ProductList} />
         </Switch>
+        <Footer/>
       </section>
     );
   }
