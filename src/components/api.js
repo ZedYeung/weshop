@@ -1,6 +1,18 @@
 import axios from 'axios';
+import { AUTH_PREFIX, TOKEN_KEY } from '../.env';
 
 const local_host = "http://localhost:8000";
+
+axios.interceptors.request.use(
+    (config) => {
+        if (!! localStorage.getItem(TOKEN_KEY)) {
+            config.headers.Authorization = `${AUTH_PREFIX} ${localStorage.getItem(TOKEN_KEY)}`;
+        }
+        return config;
+    }, (err) => {
+        return Promise.reject(err);
+    }
+)
 
 export const getProducts = (params) => {
     return axios.get(`${local_host}/product/`, { params: params });
