@@ -8,6 +8,7 @@ axios.interceptors.request.use(
         if (!! localStorage.getItem(TOKEN_KEY)) {
             config.headers.Authorization = `${AUTH_PREFIX} ${localStorage.getItem(TOKEN_KEY)}`;
         }
+        console.log(config);
         return config;
     }, (err) => {
         return Promise.reject(err);
@@ -38,4 +39,10 @@ export const getProduct = (productID) => {
 
 export const getUserProfile = () => {
     return axios.get(`${local_host}/user/1/`)
+}
+
+// weired, have to use { params: params } like get
+export const updateUserProfile = (params) => {
+    console.log(params)
+    return axios.put(`${local_host}/user/1/`, params )
 }
