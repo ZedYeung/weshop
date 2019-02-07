@@ -8,6 +8,7 @@ const { Option } = Select;
 class UserProfileForm extends Component {
     state = {
         user: null,
+        updated: false,
     }
 
     componentDidMount() {
@@ -37,8 +38,14 @@ class UserProfileForm extends Component {
                     email: values.email,
                 }).then((res) => {
                     // message.success(response);
-                    alert("Updated");
-                    this.props.history.push('/');
+                    // alert("Updated");
+                    this.setState({
+                        updated: true,
+                    })
+
+                    setTimeout(() => { 
+                        this.props.history.push('/'); 
+                    }, 2000); 
                 }).catch((error) => {
                     console.log(error);
                 });
@@ -166,6 +173,9 @@ class UserProfileForm extends Component {
                     </Form.Item>
                     <FormItem {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit">Update</Button>
+                        {this.state.updated === true && (
+                            <Alert message="Updated! Redirecting to homepage..." type="success" />
+                        )}
                     </FormItem>
                 </Form>
                 )}
