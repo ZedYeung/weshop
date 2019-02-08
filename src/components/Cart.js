@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, InputNumber } from 'antd';
+import { Table, InputNumber,  Button, Row, Col, Card } from 'antd';
 import { getCart, deleteCart, updateCart } from './api';
 
 export class Cart extends Component {
@@ -50,6 +50,12 @@ export class Cart extends Component {
         })
     }
 
+    getSubtotal = () => {
+        return this.state.cart.reduce((acc, item) => (
+            acc + item.quantity * item.product.price
+        ), 0)
+    }
+
 
 
     render() {
@@ -57,8 +63,8 @@ export class Cart extends Component {
             title: 'Image',
             dataIndex: 'product.image',
             width: '100',
-            render: (image) => (
-                <img src={image} width="100"/>
+            render: (image, record) => (
+                <img src={image} width="100" alt={record.product.name}/>
             )
           }, {
             title: 'Name',
@@ -89,13 +95,27 @@ export class Cart extends Component {
           }];
 
         return (
-            <Table
-                className="cart"
-                rowKey={record => record.product.id} 
-                columns={columns}
-                dataSource={this.state.cart}
-                footer={() => 'Footer'}
-            />
+            <Row gutter={6} className="cart">
+                <Col span={20}>
+                    <Table
+                        className="cart-table"
+                        rowKey={record => record.product.id} 
+                        columns={columns}
+                        dataSource={this.state.cart}
+                        footer={(data) => (
+                            console.log(data)
+                        )}
+                    />
+                </Col>
+                <Col span={3}>
+                    <Card className="checkout-form"
+                        title={`$${this.getSubtotal()}`}
+                    >
+                        <Button type="primary">Checkout</Button>
+                    </Card>
+                </Col>
+            </Row>
+
         )
     }
 }

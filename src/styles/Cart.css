@@ -1,5 +1,15 @@
 .cart {
-    margin-left: 5%;
-    margin-right: 5%;
     margin-top: 40px;
+}
+
+.cart-table {
+    margin-left: 5%;
+}
+
+.checkout-form {
+    margin-right: 5%;
+}
+
+.cart-footer {
+    text-align: right;
 }
