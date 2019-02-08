@@ -7,6 +7,7 @@
 @import "Filter.css";
 @import 'Login.css';
 @import 'Register.css';
+@import 'Cart.css';
 
 .App {
   /* text-align: center; */

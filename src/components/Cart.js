@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Table, List, Card, Input } from 'antd';
+import { Table } from 'antd';
 import { getCart } from './api';
-import { Product } from './Product';
 
 export class Cart extends Component {
     state = {
@@ -45,7 +44,7 @@ export class Cart extends Component {
           }];
 
         return (
-            <Table columns={columns} dataSource={this.state.cart} />
+            <Table className="cart" columns={columns} dataSource={this.state.cart} />
         )
     }
 }
