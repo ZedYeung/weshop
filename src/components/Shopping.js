@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form,  Button, Select, Icon, Alert } from 'antd';
-import { addCart, updateUserProfile } from './api';
+import { addCart } from './api';
 
 
 const FormItem = Form.Item;
@@ -49,8 +49,8 @@ class ShoppingForm extends Component {
                     offset: 0,
                 },
                 sm: {
-                    span: 14,
-                    offset: 6,
+                    span: 22,
+                    offset: 0,
                 },
             },
         };
@@ -72,7 +72,7 @@ class ShoppingForm extends Component {
                     )}    
                 </FormItem>
                 <FormItem {...tailFormItemLayout}>
-                    <Button type="primary" htmlType="submit"><Icon type="shopping-cart" />Add to Cart</Button>
+                    <Button block type="primary" htmlType="submit"><Icon type="shopping-cart" />Add to Cart</Button>
                     {this.state.added === true && (
                         <Alert message="Added to Cart" type="success" />
                     )}
