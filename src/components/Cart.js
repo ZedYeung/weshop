@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Table } from 'antd';
-import { getCart, deleteCart } from './api';
+import { Table, InputNumber } from 'antd';
+import { getCart, deleteCart, updateCart } from './api';
 
 export class Cart extends Component {
     state = {
@@ -32,6 +32,16 @@ export class Cart extends Component {
         })
     }
 
+    onQuantityChange = (quantity, productID) => {
+        updateCart(productID, {
+            quantity: quantity
+        }).then((res) => {
+            console.log(res);
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
+
     render() {
         const columns = [{
             title: 'Image',
@@ -50,7 +60,13 @@ export class Cart extends Component {
           }, {
             title: 'Quantity',
             dataIndex: 'quantity',
-            key: 'quantity',
+            render: (quantity, record) => (
+                <InputNumber
+                    min={1} max={record.product.stock}
+                    defaultValue={quantity}
+                    onChange={(key) => this.onQuantityChange(key, record.product.id)} 
+                />
+            ),
             sorter: (a, b) => a.quantity - b.quantity,
           }, {
             title: 'Action',
@@ -63,7 +79,7 @@ export class Cart extends Component {
           }];
 
         return (
-            <Table className="cart" columns={columns} dataSource={this.state.cart} />
+            <Table className="cart" rowKey={record => record.product.id}  columns={columns} dataSource={this.state.cart} />
         )
     }
 }

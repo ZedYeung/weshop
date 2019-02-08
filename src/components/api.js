@@ -53,5 +53,9 @@ export const addCart = (params) => {
 }
 
 export const deleteCart = (productID) => {
-    return axios.delete(`${local_host}/cart/${productID}`)
+    return axios.delete(`${local_host}/cart/${productID}/`)
+}
+
+export const updateCart = (productID, params) => {
+    return axios.patch(`${local_host}/cart/${productID}/`, params)
 }
