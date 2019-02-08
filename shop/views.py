@@ -6,7 +6,7 @@ from rest_framework import generics, mixins, viewsets
 from .models import Category, Product
 from .filter import ProductFilter
 from .paginator import ProductPagination
-from .serializer import CategorySerializer, ProductSerializer
+from .serializers import CategorySerializer, ProductSerializer
 
 
 # Create your views here.

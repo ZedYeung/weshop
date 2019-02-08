@@ -3,11 +3,11 @@ from rest_framework import mixins, viewsets
 from rest_framework import permissions
 from rest_framework import authentication
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
-from .serializer import UserRegisterSerializer, UserProfileSerializer
+from .serializers import UserRegisterSerializer, UserProfileSerializer
 from .models import User
 
 
-class UserViewset(mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class UserViewset(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
     """
     User
     """
@@ -33,6 +33,7 @@ class UserViewset(mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.G
             return []
 
         return [permissions.IsAuthenticated()]
+        # return []
 
     # return current user with any id
     def get_object(self):
