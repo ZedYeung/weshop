@@ -28,7 +28,7 @@ export class Product extends Component {
         return (
             <div className="product">
                 {product && (
-                    <Row gutter={22}>
+                    <Row gutter={2}>
                         <Col span={8}>
                             <Card
                                 className="product-image"
@@ -57,7 +57,7 @@ export class Product extends Component {
                                 </ul>
                             </Card>
                         </Col> 
-                        <Col span={4}>
+                        <Col span={5}>
                             <Card className="product-user-operation"
                                 title={`$${product.price}`}
                             >

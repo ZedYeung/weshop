@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { Form,  Button, Select, Icon, } from 'antd';
+import { Form,  Button, Select, Icon, Alert } from 'antd';
 import { addCart, updateUserProfile } from './api';
 
 
 const FormItem = Form.Item;
 const { Option } = Select;
 class ShoppingForm extends Component {
+    state = {
+        added: false
+    }
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -15,7 +18,9 @@ class ShoppingForm extends Component {
                     product: this.props.productID,
                     quantity: values.quantity,
                 }).then((res) => {
-                    console.log(res);
+                    this.setState({
+                        added: true,
+                    })
                 }).catch((error) => {
                     console.log(error);
                 });
@@ -68,8 +73,12 @@ class ShoppingForm extends Component {
                 </FormItem>
                 <FormItem {...tailFormItemLayout}>
                     <Button type="primary" htmlType="submit"><Icon type="shopping-cart" />Add to Cart</Button>
+                    {this.state.added === true && (
+                        <Alert message="Added to Cart" type="success" />
+                    )}
                 </FormItem>
             </Form>
+
         );
     }
 }
