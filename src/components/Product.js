@@ -57,7 +57,7 @@ export class Product extends Component {
                                 </ul>
                             </Card>
                         </Col> 
-                        <Col span={5}>
+                        <Col span={4}>
                             <Card className="product-user-operation"
                                 title={`$${product.price}`}
                             >
