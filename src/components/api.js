@@ -8,7 +8,6 @@ axios.interceptors.request.use(
         if (!! localStorage.getItem(TOKEN_KEY)) {
             config.headers.Authorization = `${AUTH_PREFIX} ${localStorage.getItem(TOKEN_KEY)}`;
         }
-        console.log(config);
         return config;
     }, (err) => {
         return Promise.reject(err);
@@ -51,4 +50,8 @@ export const getCart = () => {
 
 export const addCart = (params) => {
     return axios.post(`${local_host}/cart/`, params)
+}
+
+export const deleteCart = (productID) => {
+    return axios.delete(`${local_host}/cart/${productID}`)
 }
