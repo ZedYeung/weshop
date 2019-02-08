@@ -4,6 +4,13 @@ from shop.serializers import ProductSerializer
 from .models import Cart
 
 
+class CartDetailSerializer(serializers.ModelSerializer):
+    product = ProductSerializer(many=False, read_only=True)
+    class Meta:
+        model = Cart
+        fields = ("product", "quantity")
+
+
 class CartSerializer(serializers.Serializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     quantity = serializers.IntegerField(required=True, min_value=1,
@@ -34,4 +41,3 @@ class CartSerializer(serializers.Serializer):
         instance.save()
         return instance
 
-    

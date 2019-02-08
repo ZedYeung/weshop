@@ -5,7 +5,7 @@ from rest_framework import authentication
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from .models import Cart
-from .serializers import CartSerializer
+from .serializers import CartSerializer, CartDetailSerializer
 
 
 # Create your views here.
@@ -14,16 +14,29 @@ class CartViewset(viewsets.ModelViewSet):
     Cart
 
     list:
-        get cart detail
+        get all cart items
+    read:
+        get specific cart item
     create:
-        add into cart
+        add item into cart
     delete:
-        delete cart
+        delete item from cart
+    update:
+        update specific cart item
+    partial_update:
+        partial update specific cart item
     """
     authentication_classes = (JSONWebTokenAuthentication, authentication.SessionAuthentication )
     permission_classes = (IsAuthenticated,)
     serializer_class = CartSerializer
     lookup_field = "product_id"
+
+    def get_serializer_class(self):
+        # if self.action == 'list' or self.action == 'retrieve':
+        if self.action == 'list':
+            return CartDetailSerializer
+        else:
+            return CartSerializer
 
     def get_queryset(self):
         return Cart.objects.filter(user=self.request.user)
