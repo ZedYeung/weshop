@@ -36,11 +36,21 @@ export class Cart extends Component {
         updateCart(productID, {
             quantity: quantity
         }).then((res) => {
+            this.setState({
+                cart: this.state.cart.map((item) => {
+                    if (item.product.id === productID) {
+                        item.quantity = quantity;
+                    } 
+                    return item;
+                })
+            })
             console.log(res);
         }).catch((err) => {
             console.log(err);
         })
     }
+
+
 
     render() {
         const columns = [{
@@ -79,7 +89,13 @@ export class Cart extends Component {
           }];
 
         return (
-            <Table className="cart" rowKey={record => record.product.id}  columns={columns} dataSource={this.state.cart} />
+            <Table
+                className="cart"
+                rowKey={record => record.product.id} 
+                columns={columns}
+                dataSource={this.state.cart}
+                footer={() => 'Footer'}
+            />
         )
     }
 }
