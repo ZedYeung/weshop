@@ -37,10 +37,12 @@ export class Cart extends Component {
             title: 'Price',
             dataIndex: 'product.price',
             key: 'price',
+            sorter: (a, b) => a.product.price - b.product.price,
           }, {
             title: 'Quantity',
             dataIndex: 'quantity',
             key: 'quantity',
+            sorter: (a, b) => a.quantity - b.quantity,
           }];
 
         return (
