@@ -45,6 +45,10 @@ export const updateUserProfile = (params) => {
     return axios.put(`${local_host}/user/1/`, params )
 }
 
+export const getCart = () => {
+    return axios.get(`${local_host}/cart/`)
+}
+
 export const addCart = (params) => {
     return axios.post(`${local_host}/cart/`, params)
 }

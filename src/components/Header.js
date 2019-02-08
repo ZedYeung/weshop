@@ -19,6 +19,8 @@ export class Header extends Component{
                 {
                     this.props.isLoggedIn ? (
                         <div className="auth">
+                            <Link to="/cart"><Icon type="shopping-cart" />{' '}Cart</Link>
+                            {' '}|
                             <Link to="/member"><Icon type="user" />{' '}Account</Link>
                             {' '}|
                             <a href=""

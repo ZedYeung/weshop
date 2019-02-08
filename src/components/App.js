@@ -5,6 +5,7 @@ import { Header } from './Header';
 import { Navbar } from './Navbar';
 import { ProductList } from './ProductList';
 import { Product } from './Product';
+import { Cart } from './Cart';
 import { Login } from './Login';
 import { Register } from './Register';
 import { Member } from './Member';
@@ -48,6 +49,7 @@ class App extends Component {
             <Route path="/register" component={Register}/>
             <Route path="/login" render={this.getLogin}/>
             <Route path="/member" component={Member} /> 
+            <Route path="/cart" component={Cart} />
             <Route path="/product/:productID" render={this.getProduct} /> 
             <Route component={ProductList} />
         </Switch>
