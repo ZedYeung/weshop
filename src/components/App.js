@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom'
 import '../styles/App.css';
 import { Header } from './Header';
-import { Navbar } from './Navbar';
 import { ProductList } from './ProductList';
 import { Product } from './Product';
 import { Cart } from './Cart';
@@ -42,7 +41,6 @@ class App extends Component {
     return (
       <section className="App">
         <Header isLoggedIn={this.state.isLoggedIn} handleLogout={this.handleLogout} />
-        <Navbar/>
         <Switch>
             {/* <Route exact path="/" render={this.getMain} /> */}
             <Route exact path="/" component={ProductList} />
