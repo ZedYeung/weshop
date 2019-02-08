@@ -19,7 +19,7 @@ export class Header extends Component{
                 {
                     this.props.isLoggedIn ? (
                         <div className="auth">
-                            <Link to="/homepage"><Icon type="user" />{' '}Account</Link>
+                            <Link to="/member"><Icon type="user" />{' '}Account</Link>
                             {' '}|
                             <a href=""
                                 onClick={this.props.handleLogout}>
