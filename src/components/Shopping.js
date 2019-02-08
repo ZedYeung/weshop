@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form,  Button, Select, Icon, } from 'antd';
-import { getUserProfile, updateUserProfile } from './api';
+import { addCart, updateUserProfile } from './api';
 
 
 const FormItem = Form.Item;
@@ -9,6 +9,18 @@ class ShoppingForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+                addCart({
+                    product: this.props.productID,
+                    quantity: values.quantity,
+                }).then((res) => {
+                    console.log(res);
+                }).catch((error) => {
+                    console.log(error);
+                });
+            }
+        });
     }
 
 

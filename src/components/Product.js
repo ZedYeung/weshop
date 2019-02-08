@@ -61,7 +61,7 @@ export class Product extends Component {
                             <Card className="product-user-operation"
                                 title={`$${product.price}`}
                             >
-                                <Shopping />
+                                <Shopping productID={product.id} />
                             </Card>
                         </Col> 
                     </Row>

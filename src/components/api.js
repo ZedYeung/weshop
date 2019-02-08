@@ -41,8 +41,10 @@ export const getUserProfile = () => {
     return axios.get(`${local_host}/user/1/`)
 }
 
-// weired, have to use { params: params } like get
 export const updateUserProfile = (params) => {
-    console.log(params)
     return axios.put(`${local_host}/user/1/`, params )
+}
+
+export const addCart = (params) => {
+    return axios.post(`${local_host}/cart/`, params)
 }
