@@ -14,8 +14,10 @@ export class Header extends Component{
     render(){
         return (
             <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <h1 className="App-title">Weshop</h1>
+                <Link to="/">
+                    <img src={logo} className="App-logo" alt="logo" />
+                    <h1 className="App-title">Weshop</h1>
+                </Link>
                 {
                     this.props.isLoggedIn ? (
                         <div className="auth">
