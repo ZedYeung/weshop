@@ -10,6 +10,8 @@
 @import 'Cart.css';
 @import 'Order.css';
 @import 'Shopping.css';
+@import 'OrderDetailList.css';
+@import 'OrderProductList.css';
 
 .App {
   /* text-align: center; */
