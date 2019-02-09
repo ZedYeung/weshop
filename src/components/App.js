@@ -8,10 +8,10 @@ import { Cart } from './Cart';
 import { Login } from './Login';
 import { Register } from './Register';
 import { Member } from './Member';
+import { OrderList } from './OrderList';
 import { Order } from './Order';
 import { Footer } from './Footer';
-import { TOKEN_KEY, STRIPE_PUBLISHABLE_KEY } from '../.env'
-import { StripeProvider, Elements } from 'react-stripe-elements';
+import { TOKEN_KEY } from '../.env'
 
 
 class App extends Component {
@@ -39,6 +39,10 @@ class App extends Component {
       return <Product productID={props.match.params && props.match.params.productID }/>
   }
 
+  getOrder = (props) => {
+    return <Order orderID={props.match.params && props.match.params.orderID }/>
+  }
+
   render() {
     return (
 
@@ -51,7 +55,8 @@ class App extends Component {
               <Route path="/login" render={this.getLogin}/>
               <Route path="/member" component={Member} /> 
               <Route path="/cart" component={Cart} />
-              <Route path="/order" component={Order} />
+              <Route exact path="/order" component={OrderList} />
+              <Route path="/order/:orderID" render={this.getOrder} /> 
               <Route path="/product/:productID" render={this.getProduct} /> 
               <Route component={ProductList} />
           </Switch>
