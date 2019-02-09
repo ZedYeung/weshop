@@ -1,25 +1,32 @@
 import React, { Component } from 'react';
 import { Card, Col, Row, Statistic } from 'antd';
-import { getProduct } from './api';
+import { OrderProductList } from './OrderProductList';
+import { getOrder } from './api';
 
 
 export class Order extends Component {
+    state = {
+        order: null,
+    }
+
+    componentDidMount() {
+        getOrder(
+            this.props.orderID
+        ).then((res) => {
+            console.log(res)
+            this.setState({
+                order: res.data,
+            })
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
+
     render () {
+        const { order } = this.state
         return (
             <div>
-                <h1>order</h1>
-                <Card className="product-info"
-                    title="lsdfaasdfdsf"
-                >
-                    <Row gutter={10}>
-                        <Col span={5}>
-                            <Statistic title="Price" value={3452} prefix="$" />
-                        </Col>
-                        <Col span={5}>
-                            <Statistic title="Stock" value={342324} />
-                        </Col>
-                    </Row>
-                </Card>
+                <OrderProductList products={order && order.product}/>
             </div>
         )
     }

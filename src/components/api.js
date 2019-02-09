@@ -60,8 +60,12 @@ export const updateCart = (productID, params) => {
     return axios.patch(`${local_host}/cart/${productID}/`, params)
 }
 
-export const getOrder = () => {
+export const getOrders = () => {
     return axios.get(`${local_host}/order/`)
+}
+
+export const getOrder = (orderID) => {
+    return axios.get(`${local_host}/order/${orderID}/`)
 }
 
 export const deleteOrder = (orderID) => {

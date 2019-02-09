@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table, InputNumber } from 'antd';
 import { Link } from 'react-router-dom'
-import { getOrder, deleteOrder } from './api';
+import { getOrders, deleteOrder } from './api';
 
 
 export class OrderList extends Component {
@@ -10,7 +10,7 @@ export class OrderList extends Component {
     }
 
     componentDidMount() {
-        getOrder(
+        getOrders(
 
         ).then((res) => {
             console.log(res)
