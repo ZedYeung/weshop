@@ -8,8 +8,10 @@ import { Cart } from './Cart';
 import { Login } from './Login';
 import { Register } from './Register';
 import { Member } from './Member';
+import { Order } from './Order';
 import { Footer } from './Footer';
-import { TOKEN_KEY } from '../.env'
+import { TOKEN_KEY, STRIPE_PUBLISHABLE_KEY } from '../.env'
+import { StripeProvider, Elements } from 'react-stripe-elements';
 
 
 class App extends Component {
@@ -39,20 +41,22 @@ class App extends Component {
 
   render() {
     return (
-      <section className="App">
-        <Header isLoggedIn={this.state.isLoggedIn} handleLogout={this.handleLogout} />
-        <Switch>
-            {/* <Route exact path="/" render={this.getMain} /> */}
-            <Route exact path="/" component={ProductList} />
-            <Route path="/register" component={Register}/>
-            <Route path="/login" render={this.getLogin}/>
-            <Route path="/member" component={Member} /> 
-            <Route path="/cart" component={Cart} />
-            <Route path="/product/:productID" render={this.getProduct} /> 
-            <Route component={ProductList} />
-        </Switch>
-        <Footer/>
-      </section>
+
+        <section className="App">
+          <Header isLoggedIn={this.state.isLoggedIn} handleLogout={this.handleLogout} />
+          <Switch>
+              {/* <Route exact path="/" render={this.getMain} /> */}
+              <Route exact path="/" component={ProductList} />
+              <Route path="/register" component={Register}/>
+              <Route path="/login" render={this.getLogin}/>
+              <Route path="/member" component={Member} /> 
+              <Route path="/cart" component={Cart} />
+              <Route path="/order" component={Order} />
+              <Route path="/product/:productID" render={this.getProduct} /> 
+              <Route component={ProductList} />
+          </Switch>
+          <Footer/>
+        </section>
     );
   }
 }

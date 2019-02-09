@@ -59,3 +59,7 @@ export const deleteCart = (productID) => {
 export const updateCart = (productID, params) => {
     return axios.patch(`${local_host}/cart/${productID}/`, params)
 }
+
+export const getOrder = () => {
+    return axios.get(`${local_host}/order/`)
+}
