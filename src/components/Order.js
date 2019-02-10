@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Card, Col, Row, Statistic } from 'antd';
 import { OrderProductList } from './OrderProductList';
 import { OrderDetailList } from './OrderDetailList';
 import { getOrder } from './api';

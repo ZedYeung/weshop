@@ -17,7 +17,7 @@ class RegistrationForm extends Component {
                     username: values.username,
                     password: values.password
                 }).then((res) => {
-                    // message.success(response);
+                    message.success(res);
                     this.props.history.push('/login');
                 }).catch((error) => {
                     console.log(error);

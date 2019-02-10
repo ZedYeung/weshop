@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, InputNumber } from 'antd';
+import { Table } from 'antd';
 import { Link } from 'react-router-dom'
 import { getOrders, deleteOrder } from './api';
 
