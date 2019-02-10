@@ -5,6 +5,7 @@ import { UserProfile } from './UserProfile';
 import { Cart } from './Cart';
 import { Order } from './Order';
 import { OrderList } from './OrderList';
+import { AddressList } from './AddressList';
 
 
 const { Sider, Content } = Layout
@@ -39,6 +40,9 @@ export class Member extends Component {
                         <Menu.Item key="profile">
                             <Link to="/member/profile">Profile</Link>
                         </Menu.Item>
+                        <Menu.Item key="address">
+                            <Link to="/member/address">Address</Link>
+                        </Menu.Item>
                         <Menu.Item key="cart" >
                             <Link to="/member/cart">Cart</Link>
                         </Menu.Item>
@@ -53,6 +57,7 @@ export class Member extends Component {
                             <Route exact path="/member" component={UserProfile} />
                             <Route exact path="/member/profile" component={UserProfile} />
                             <Route path="/member/cart" component={Cart} />
+                            <Route path="/member/address" component={AddressList} />
                             <Route exact path="/member/order" component={OrderList} />
                             <Route path="/member/order/:orderID" render={this.getOrder} /> 
                             <Route component={UserProfile} />
