@@ -79,16 +79,18 @@ export class ProductList extends Component {
     render() {
         return (
             <div className="products-main">  
-                <Search
-                    className="product-search"
-                    placeholder="input search text"
-                    onSearch={this.handleSearch}
-                    enterButton
-                />          
-                <Category getCategory={this.getCategory} />
-                <Filter getFilter={this.getFilter} />
-                <Ordering  getOrdering={this.getOrdering} />
-                
+                <section className="filter">
+                    <Search
+                        className="product-search"
+                        placeholder="input search text"
+                        onSearch={this.handleSearch}
+                        enterButton
+                    />          
+                    <Category getCategory={this.getCategory} />
+                    <Filter getFilter={this.getFilter} />
+                    <Ordering  getOrdering={this.getOrdering} />
+                </section>
+
                 <List className="product-list"
                     grid={{ gutter: 16, column: 4 }}
                     // grid={{gutter: 0, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3,}}
