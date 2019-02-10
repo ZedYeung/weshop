@@ -37,13 +37,15 @@ export class Header extends Component{
                                     <Icon type="user" />Account
                                 </Button>
                             </Link>
-                            <Button 
-                                className="auth-button"
-                                onClick={this.props.handleLogout}
-                                ghost
-                            >
-                                <Icon type="logout"/>logout
-                            </Button>
+                            <Link to="/">
+                                <Button 
+                                    className="auth-button"
+                                    onClick={this.props.handleLogout}
+                                    ghost
+                                >
+                                    <Icon type="logout"/>logout
+                                </Button>
+                            </Link>
                         </div>
                     ) : (
                         <div className="auth">

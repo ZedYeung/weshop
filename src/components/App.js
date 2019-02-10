@@ -21,7 +21,6 @@ class App extends Component {
   }
 
   handleLogin = (res) => {
-    console.log(res);
       localStorage.setItem(TOKEN_KEY, res.data.token);
       this.setState({isLoggedIn:true});
   }
