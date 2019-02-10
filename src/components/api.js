@@ -71,3 +71,11 @@ export const getOrder = (orderID) => {
 export const deleteOrder = (orderID) => {
     return axios.delete(`${local_host}/order/${orderID}/`)
 }
+
+export const createOrder = (params) => {
+    return axios.post(`${local_host}/order/`, params)
+}
+
+export const checkout = (params) => {
+    return axios.post(`${local_host}/checkout/`, params)
+}
