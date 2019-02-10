@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import { Redirect } from 'react-router-dom'
-import { message } from 'antd';
+import { message, Button } from 'antd';
 import { createOrder, checkout } from './api';
 
 class CheckoutForm extends Component {
@@ -82,7 +82,12 @@ class CheckoutForm extends Component {
                 {this.state.status === "succeeded" ? <Redirect to="/thankyou" /> : (
                     <form className="checkout">
                         <CardElement />
-                        <button onClick={this.handleCheckout}>Confirm</button>
+                        <Button
+                            block type="primary"
+                            onClick={this.handleCheckout}
+                            style={{marginTop: '20px'}}>
+                            Confirm
+                        </Button>
                     </form>
                 )
                 }
