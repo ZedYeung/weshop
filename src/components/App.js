@@ -10,6 +10,7 @@ import { Register } from './Register';
 import { Member } from './Member';
 import { OrderList } from './OrderList';
 import { Order } from './Order';
+import { Thankyou } from './Thankyou';
 import { Footer } from './Footer';
 import { TOKEN_KEY } from '../.env'
 
@@ -55,6 +56,7 @@ class App extends Component {
               <Route path="/login" render={this.getLogin}/>
               <Route path="/member" component={Member} /> 
               <Route path="/cart" component={Cart} />
+              <Route path="/thankyou" component={Thankyou} />
               <Route exact path="/order" component={OrderList} />
               <Route path="/order/:orderID" render={this.getOrder} /> 
               <Route path="/product/:productID" render={this.getProduct} /> 
