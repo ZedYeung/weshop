@@ -112,7 +112,7 @@ export class Cart extends Component {
                         <Checkout amount={this.getSubtotal()} />
                         
                         <Link to="/">
-                            <Button className="checkout-form-botton" block>Keep Shopping</Button>
+                            <Button className="checkout-form-botton" block>Shopping</Button>
                         </Link>
                     </Card>
                 </Col>
