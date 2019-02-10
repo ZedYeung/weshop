@@ -61,16 +61,14 @@ class CheckoutView(APIView):
         # print(request.POST -- empty
         # print(request.data) -- dict
         data = request.data
-        for key, value in data.items():
-            print(key, value)
+
         try:
             order_id = data.get('order_id', None)
-            print(order_id)
             if not order_id:
                 return Response("Need to create order first")
 
             charge = stripe.Charge.create(
-                amount=data.get('amount', 0),
+                amount=int(float(data.get('amount', 0)) * 100),
                 currency=data.get('currency', 'usd'),
                 source=data.get('source', None),
                 receipt_email=data.get('receipt_email', None),
@@ -109,11 +107,11 @@ class CheckoutView(APIView):
             return Response("The API was not able to respond, try again.")
         except stripe.error.InvalidRequestError as e:
             # invalid parameters were supplied to Stripe's API
-            return Response("Invalid parameters, unable to process payment.")
+            return Response("Invalid parameters, unable to process payment. {}".format(e))
         except stripe.error.AuthenticationError as e:
             # Authentication with Stripe's API failed
             # (maybe you changed API keys recently)
-            pass
+            return Response("stripe.error.AuthenticationError {}".format(e))
         except stripe.error.APIConnectionError as e:
             # Network communication with Stripe failed
             return Response("Network communication failed, try again.")
@@ -124,5 +122,5 @@ class CheckoutView(APIView):
 
         # Something else happened, completely unrelated to Stripe
         except Exception as e:
-            return Response('Unable to process payment, try again.')
+            return Response('Unable to process payment, try again. {}'.format(e))
 
