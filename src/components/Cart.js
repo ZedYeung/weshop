@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
-import { Table, InputNumber,  Button, Row, Col, Card, Modal } from 'antd';
+import { Table, InputNumber,  Button, Row, Col, Card } from 'antd';
 import { Link } from 'react-router-dom'
-import { StripeProvider, Elements } from 'react-stripe-elements';
 import { getCart, deleteCart, updateCart } from './api';
-// import { Checkout } from './Checkout';
-import { STRIPE_PUBLISHABLE_KEY } from '../.env';
-// import InjectedCheckoutForm from './CheckoutForm';
-import { Checkout } from './CheckoutForm';
+import { Checkout } from './Checkout';
 
 export class Cart extends Component {
     state = {
         cart: [],
-        visible: false,
     }
 
     componentDidMount() {
@@ -63,14 +58,6 @@ export class Cart extends Component {
         ), 0)
     }
 
-
-
-    saveFormRef = (form) => {
-        this.form = form;
-    }
-
-
-
     render() {
         const columns = [{
             title: 'Image',
@@ -80,34 +67,33 @@ export class Cart extends Component {
                 <img src={image} width="100" alt={record.product.name}/>
             )
         }, {
-        title: 'Name',
-        dataIndex: 'product.name',
+            title: 'Name',
+            dataIndex: 'product.name',
         }, {
-        title: 'Price',
-        dataIndex: 'product.price',
-        sorter: (a, b) => a.product.price - b.product.price,
+            title: 'Price',
+            dataIndex: 'product.price',
+            sorter: (a, b) => a.product.price - b.product.price,
         }, {
-        title: 'Quantity',
-        dataIndex: 'quantity',
-        render: (quantity, record) => (
-            <InputNumber
-                min={1} max={record.product.stock}
-                defaultValue={quantity}
-                onChange={(key) => this.onQuantityChange(key, record.product.id)} 
-            />
-        ),
-        sorter: (a, b) => a.quantity - b.quantity,
+            title: 'Quantity',
+            dataIndex: 'quantity',
+            render: (quantity, record) => (
+                <InputNumber
+                    min={1} max={record.product.stock}
+                    defaultValue={quantity}
+                    onChange={(key) => this.onQuantityChange(key, record.product.id)} 
+                />
+            ),
+            sorter: (a, b) => a.quantity - b.quantity,
         }, {
-        title: 'Action',
-        dataIndex: 'product.id',
-        render: (id, record) => (
-            <span>
-                <a href="#" onClick={(e) => this.handleDelete(id, e)}>Delete</a>
-            </span>
-        )
+            title: 'Action',
+            dataIndex: 'product.id',
+            render: (id, record) => (
+                <span>
+                    <Button onClick={(e) => this.handleDelete(id, e)} >Delete</Button>
+                </span>
+            )
         }];
 
-        const { visible } = this.state;
         return (
             <Row gutter={6} className="cart">
                 <Col span={20}>
@@ -125,17 +111,14 @@ export class Cart extends Component {
                     <Card className="checkout-form-card"
                         title={`$${this.getSubtotal()}`}
                     >
-                        <Checkout amount={this.getSubtotal() }/>
+                        <Checkout amount={this.getSubtotal()} />
                         
                         <Link to="/">
                             <Button className="checkout-form-botton" block>Keep Shopping</Button>
                         </Link>
                     </Card>
                 </Col>
-
             </Row>
- 
-
         )
     }
 }
