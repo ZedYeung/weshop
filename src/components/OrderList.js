@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table } from 'antd';
+import { Table, Button } from 'antd';
 import { Link } from 'react-router-dom'
 import { getOrders, deleteOrder } from './api';
 
@@ -56,9 +56,11 @@ export class OrderList extends Component {
             title: 'Action',
             dataIndex: 'id',
             render: (id, record) => (
-                <span>
-                    <a href="#" onClick={(e) => this.handleDelete(id, e)}>Cancel</a>
-                </span>
+                <Button
+                    onClick={(e) => this.handleDelete(id, e)}
+                >
+                    Cancel
+                </Button>
             )
         }];
 
