@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import logo from '../assets/images/logo.svg';
-import { Icon } from 'antd';
+import { Icon, Button } from 'antd';
 
 
 export class Header extends Component{
@@ -21,19 +21,48 @@ export class Header extends Component{
                 {
                     this.props.isLoggedIn ? (
                         <div className="auth">
-                            <Link to="/cart"><Icon type="shopping-cart" />{' '}Cart</Link>
-                            {' '}|
-                            <Link to="/member"><Icon type="user" />{' '}Account</Link>
-                            {' '}|
-                            <a href=""
-                                onClick={this.props.handleLogout}>
-                                <Icon type="logout"/>{' '}logout
-                            </a>
+                            <Link to="/cart">
+                                <Button
+                                    className="auth-button"
+                                    ghost
+                                >
+                                    <Icon type="shopping-cart" />Cart
+                                </Button>
+                            </Link>
+                            <Link to="/member">
+                                <Button
+                                    className="auth-button"
+                                    ghost
+                                >
+                                    <Icon type="user" />Account
+                                </Button>
+                            </Link>
+                            <Button 
+                                className="auth-button"
+                                onClick={this.props.handleLogout}
+                                ghost
+                            >
+                                <Icon type="logout"/>logout
+                            </Button>
                         </div>
                     ) : (
                         <div className="auth">
-                            <Link to="/login"><Icon type="login"/>{' '}login</Link>
-                            {' '}| <Link to="/register">register</Link>
+                            <Link to="/login">
+                                <Button
+                                    className="auth-button"
+                                    ghost
+                                >
+                                    <Icon type="login"/>login
+                                </Button>
+                            </Link>
+                            <Link to="/register">
+                                <Button
+                                    className="auth-button"
+                                    ghost
+                                >
+                                    register
+                                </Button>
+                            </Link>
                         </div>
                     )
                 }
