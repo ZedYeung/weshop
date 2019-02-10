@@ -24,12 +24,14 @@ from shop.views import ProductViewSet, CategoryViewSet
 from user.views import UserViewset
 from cart.views import CartViewset
 from order.views import OrderViewset, CheckoutView
+from address.views import AddressViewset
 
 router = DefaultRouter()
 
 router.register(r'product', ProductViewSet)
 router.register(r'category', CategoryViewSet)
 router.register(r'user', UserViewset, base_name="user")
+router.register(r'address', AddressViewset, base_name="address")
 router.register(r'cart', CartViewset, basename='cart')
 router.register(r'order', OrderViewset, basename='order')
 
