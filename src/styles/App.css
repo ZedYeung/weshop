@@ -12,6 +12,7 @@
 @import 'Shopping.css';
 @import 'OrderDetailList.css';
 @import 'OrderProductList.css';
+@import 'UserProfile.css';
 
 .App {
   /* text-align: center; */
