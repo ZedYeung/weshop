@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+import { Layout, Icon } from 'antd';
 
 
 export class Footer extends Component {
     render() {
         return (
-            <div className="Footer">
-                <p>&Copy; ZedYeung; All Rights Reserved.</p>
-            </div>
+            <Layout >
+                <Layout.Footer className="footer">
+                    <Icon type="copyright" /> ZedYeung; All Rights Reserved.
+                </Layout.Footer>
+            </Layout>
         );
     }
 }
