@@ -25,7 +25,7 @@ export class Checkout extends Component {
     render() {
         return (
             <div>
-                <Button className="checkout-form-botton" type="primary" onClick={this.showModal}>Checkout</Button>
+                <Button className="checkout-form-button" block type="primary" onClick={this.showModal}>Checkout</Button>
                 
                     <Modal
                         title="Checkout"
