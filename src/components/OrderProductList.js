@@ -32,8 +32,8 @@ export class OrderProductList extends Component {
                 dataSource={this.props.products}
                 footer={(data) => (
                     console.log(data)
-            )}
-        />
+                )}
+            />
         )
     }
 }
