@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Button } from 'antd';
 import { Link } from 'react-router-dom'
-import { getAddresses } from './api';
+import { getAddresses, deleteAddress } from './api';
 
 
 export class AddressList extends Component {
@@ -22,7 +22,17 @@ export class AddressList extends Component {
         })
     }
 
-
+    handleDelete = (addressID, e) => {
+        deleteAddress (
+            addressID
+        ).then((res) => {
+            this.setState({
+                addresses: this.state.addresses.filter((address) => address.id !== addressID)
+            })
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
 
     render() {
         const columns = [{
@@ -47,7 +57,7 @@ export class AddressList extends Component {
             title: 'Action',
             dataIndex: 'id',
             render: (id, record) => (
-                <Button>
+                <Button onClick={(e) => this.handleDelete(id, e)} >
                     Delete
                 </Button>
             )
