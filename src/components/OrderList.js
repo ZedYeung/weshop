@@ -13,7 +13,6 @@ export class OrderList extends Component {
         getOrders(
 
         ).then((res) => {
-            console.log(res)
             this.setState({
                 orders: res.data,
             })

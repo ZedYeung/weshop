@@ -14,7 +14,6 @@ export class Order extends Component {
         getOrder(
             this.props.orderID
         ).then((res) => {
-            console.log(res)
             this.setState({
                 order: res.data,
             })

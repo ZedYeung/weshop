@@ -18,7 +18,6 @@ export class Category extends Component {
         getCategories(
 
         ).then((res) => {
-            console.log(res.data);
             this.setState({
                 categories: res.data,
                 // isLoaded: true,
@@ -29,7 +28,6 @@ export class Category extends Component {
     }
 
     render() {
-        // console.log(this.props.categories)
         return (
             <Tabs className="category-tabs" defaultActiveKey="" onChange={this.onCategoryChange}>
                 {/* {

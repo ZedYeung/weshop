@@ -31,7 +31,6 @@ class App extends Component {
   }
 
   getLogin = (props) => {
-    console.log(props);
     return this.state.isLoggedIn ? <Redirect to="/"/> : <Login {...props} handleLogin={this.handleLogin}/>;
   }
 

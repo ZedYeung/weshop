@@ -13,7 +13,6 @@ export class Product extends Component {
         getProduct(
             this.props.productID
         ).then((res) => {
-            console.log(res);
             this.setState({
                 product: res.data
             })

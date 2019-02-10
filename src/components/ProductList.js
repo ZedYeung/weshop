@@ -59,7 +59,6 @@ export class ProductList extends Component {
             min_price: this.state.min_price,
             max_price: this.state.max_price
         }).then((res) => {
-            console.log(res.data);
             this.setState({
                 data: res.data.results,
                 productCount: res.data.count
@@ -98,7 +97,6 @@ export class ProductList extends Component {
                         defaultPageSize: 8,
                         total: this.state.productCount,
                         onChange: (page) => {
-                            console.log(page)
                             this.setState({    
                                 curPage: page
                             }, () => {

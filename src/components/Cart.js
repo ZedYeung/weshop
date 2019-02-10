@@ -13,7 +13,6 @@ export class Cart extends Component {
         getCart(
 
         ).then((res) => {
-            console.log(res)
             this.setState({
                 cart: res.data,
             })
@@ -46,7 +45,6 @@ export class Cart extends Component {
                     return item;
                 })
             })
-            console.log(res);
         }).catch((err) => {
             console.log(err);
         })

@@ -15,7 +15,6 @@ class UserProfileForm extends Component {
         getUserProfile(
 
         ).then((res) => {
-            console.log(res);
             this.setState({
                 user: res.data,
             })
@@ -89,7 +88,6 @@ class UserProfileForm extends Component {
         );
         
         const user = this.state.user;
-        user && console.log(moment(user.birthday).format('YYYY-MM-DD'))
 
         return (
             <div className="home">
