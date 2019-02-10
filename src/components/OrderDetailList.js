@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Table } from 'antd';
-
+import { Checkout } from './Checkout';
 
 export class OrderDetailList extends Component {
     render () {
@@ -17,6 +17,12 @@ export class OrderDetailList extends Component {
         }, {
             title: 'Status',
             dataIndex: 'pay_status',
+            render: (pay_status, record) => (
+                <div>
+                    {pay_status}
+                    {pay_status !== 'succeeded' && <Checkout amount={record.order_amount} orderID={record.order_id} />}
+                </div>
+            ),
         }];
 
         return (
