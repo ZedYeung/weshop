@@ -1,52 +1,95 @@
 import React, { Component } from 'react';
-import { Elements, CardElement, injectStripe } from 'react-stripe-elements';
-import { Form, Button, Modal } from 'antd';
-import InjectedCheckoutForm from './StripeCheckoutForm';
+import { CardElement, injectStripe } from 'react-stripe-elements';
+import { Redirect } from 'react-router-dom'
+import { message } from 'antd';
+import { createOrder, checkout } from './api';
 
-
-export class Checkout extends Component {
+class CheckoutForm extends Component {
     state = {
-        visible: false,
-    };
+        "status": null,
+        "orderID": this.props.orderID,
+    }
+
     
-    showModal = () => {
-        this.setState({
-            visible: true,
-        });
+    handleCheckout = (e) => {
+        e.preventDefault();
+
+        if ( this.state.orderID == null ) {
+            createOrder({
+                "order_amount": this.props.amount
+            }).then((res) => {
+                this.setState({
+                    orderID: res.data.order_id,
+                }, () => {
+                    this.createCheckout()
+                })
+            }).catch((err) => {
+                console.log(err);
+            })
+        } else {
+            this.createCheckout()
+        }
+
+    };
+
+    createCheckout = () => {
+        this.props.stripe.createToken({ type: "card", name: "Weshop" })
+        .then((res) => {
+            if (res.error) {
+                console.log("THERE IS AN ERROR IN YOUR FORM", res.error);
+            } else {
+                console.log('Received Stripe token:', res.token);
+                this.callCheckout(res.token)
+            }
+        });  
     }
 
-    handleCancel = () => {
-        console.log('Clicked cancel button');
-        this.setState({
-            visible: false,
-        });
+    callCheckout = (token) => {
+        checkout({
+            "source": token.id,
+            "order_id": this.state.orderID,
+            "amount": this.props.amount 
+        }).then((res) => {
+            this.setState({
+                "status": res.data,
+            }, () => {
+                this.checkoutStatus(this.state.status)
+            })
+        }).catch((err) => {
+            console.log(err);
+        })
     }
 
-    saveFormRef = (formRef) => {
-        this.formRef = formRef;
+    checkoutStatus = (status) => {
+        switch(status) {
+            case 'succeeded':
+                message.success('pay succeeded');
+                break
+            case 'pending':
+                message.warning('pay pending');
+                break
+            case 'failed':
+                message.error('pay failed');
+                break
+            default:
+                console.log("wrong status", status);
+        }
     }
 
     render() {
         return (
             <div>
-                <Button className="checkout-form-botton" type="primary" onClick={this.showModal}>Checkout</Button>
-                
-                    <Modal
-                        title="Checkout"
-                        visible={this.state.visible}
-                        onCancel={this.handleCancel}
-                        footer={null}
-                    > 
-                        <Elements>
-                            <InjectedCheckoutForm amount={this.props.amount} />
-                        </Elements>
-                    </Modal>
-
+                {this.state.status === "succeeded" ? <Redirect to="/thankyou" /> : (
+                    <form className="checkout">
+                        <CardElement />
+                        <button onClick={this.handleCheckout}>Confirm</button>
+                    </form>
+                )
+                }
             </div>
 
-        );
+        )
     }
-  }
-  
-//   export const Checkout = injectStripe(CheckoutForm);
-// export default injectStripe(CheckoutForm);
+}
+
+export default injectStripe(CheckoutForm);
