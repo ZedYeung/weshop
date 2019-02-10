@@ -23,7 +23,7 @@ from django.conf import settings
 from shop.views import ProductViewSet, CategoryViewSet
 from user.views import UserViewset
 from cart.views import CartViewset
-from order.views import OrderViewset
+from order.views import OrderViewset, CheckoutView
 
 router = DefaultRouter()
 
@@ -36,8 +36,9 @@ router.register(r'order', OrderViewset, basename='order')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('docs/', include_docs_urls(title="Documentation")),
     path('login/', obtain_jwt_token),
+    path('checkout/', CheckoutView.as_view(), name="checkout"),
+    path('docs/', include_docs_urls(title="Documentation")),
     # path('media/', serve, {'document_root': MEDIA_ROOT})
 ]
 
