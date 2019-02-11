@@ -15,39 +15,50 @@ export class AddressList extends Component {
         this.columns = [{
             title: 'Fullname',
             dataIndex: 'fullname',
+            key: "fullname",
             editable: true,
         }, {
             title: 'Phone',
             dataIndex: 'phone',
+            key: "phone",
             editable: true,
         }, {
             title: 'Address1',
             dataIndex: 'address1',
+            key: "address1",
             editable: true,
         }, {
             title: 'Address2',
             dataIndex: 'address2',
+            key: "address2",
             editable: true,
         }, {
             title: 'City',
             dataIndex: 'city',
+            key: "city",
             editable: true,
         }, {
             title: 'State',
             dataIndex: 'state',
+            key: "state",
             editable: true,
         }, {
             title: 'Zipcode',
             dataIndex: 'zipcode',
+            key: "zipcode",
             editable: true,
         }, {
             title: 'Country',
             dataIndex: 'country',
+            key: "country",
             editable: true,
         }, {
             title: 'Action',
             dataIndex: 'id',
+            key: "id",
             render: (id, record) => {
+                console.log(record)
+                console.log(id)
                 const editable = this.isEditing(record);
                 return (
                   <div>
@@ -55,21 +66,21 @@ export class AddressList extends Component {
                       <div>
                         <EditableContext.Consumer>
                           {form => (
-                            <Button onClick={() => this.saveEdit(form, record.key)}>
+                            <Button onClick={() => this.saveEdit(form, id)}>
                                 Save
                             </Button>
                           )}
                         </EditableContext.Consumer>
                         <Popconfirm
                           title="Sure to cancel?"
-                          onConfirm={() => this.cancelEdit(record.key)}
+                          onConfirm={() => this.cancelEdit(id)}
                         >
                           <Button>Cancel</Button>
                         </Popconfirm>
                       </div>
                     ) : (
                         <div>
-                            <Button onClick={() => this.edit(record.key)}>Edit</Button>
+                            <Button onClick={() => this.edit(id)}>Edit</Button>
                             <Button onClick={(e) => this.handleDelete(id, e)} >Delete</Button>
                         </div>
                     )}
@@ -104,24 +115,24 @@ export class AddressList extends Component {
         })
     }
 
-    isEditing = (record) => record.key === this.state.editingKey;
+    isEditing = (record) => record.id === this.state.editingKey;
 
     cancelEdit = () => {
         this.setState({ editingKey: '' });
     };
 
-    edit = (key) => {
-        this.setState({ editingKey: key });
+    edit = (id) => {
+        this.setState({ editingKey: id }, () => console.log(id, this.state));
     }
 
-    saveEdit = (form, key) => {
+    saveEdit = (form, id) => {
         form.validateFields((error, row) => {
             if (error) {
                 return;
             }
 
             const newAddresses = [...this.state.addresses];
-            const index = newAddresses.findIndex(item => key === item.key);
+            const index = newAddresses.findIndex(item => id === item.id);
             if (index > -1) {
                 const item = newAddresses[index];
                 newAddresses.splice(index, 1, {
@@ -140,6 +151,23 @@ export class AddressList extends Component {
                 newAddresses.push(row);
                 this.setState({ addresses: newAddresses, editingKey: '' });
             }
+        });
+    }
+
+    handleAdd = () => {
+        const { addresses } = this.state;
+        const newAddress = {
+          fullname: '',
+          phone: '',
+          address1: '',
+          address2: '',
+          city: '',
+          state: '',
+          zipcode: '',
+          country: '',
+        };
+        this.setState({
+            addresses: [...addresses, newAddress],
         });
     }
 
@@ -176,9 +204,11 @@ export class AddressList extends Component {
                 columns={columns}
                 dataSource={this.state.addresses}
                 footer={(data) => (
-                    console.log(data)
-            )}
-        />
+                    <Button onClick={this.handleAdd} type="primary" style={{ marginBottom: 16 }}>
+                        Add Address
+                    </Button>
+                )}
+            />
         )
     }
 }
