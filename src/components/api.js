@@ -52,6 +52,10 @@ export const deleteAddress = (addressID) => {
     return axios.delete(`${local_host}/address/${addressID}/`)
 }
 
+export const updateAddress = (addressID, params) => {
+    return axios.patch(`${local_host}/address/${addressID}/`, params)
+}
+
 export const getCart = () => {
     return axios.get(`${local_host}/cart/`)
 }

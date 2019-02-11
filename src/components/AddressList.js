@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Table, Button, Popconfirm } from 'antd';
-import { getAddresses, deleteAddress } from './api';
+import { getAddresses, deleteAddress, updateAddress } from './api';
 import { EditableCell, EditableFormRow, EditableContext } from './EditableTable';
 
 
@@ -119,6 +119,7 @@ export class AddressList extends Component {
             if (error) {
                 return;
             }
+
             const newAddresses = [...this.state.addresses];
             const index = newAddresses.findIndex(item => key === item.key);
             if (index > -1) {
@@ -127,7 +128,14 @@ export class AddressList extends Component {
                     ...item,
                     ...row,
                 });
-                this.setState({ addresses: newAddresses, editingKey: '' });
+
+                updateAddress(
+                    item.id, row
+                ).then((res) => {
+                    this.setState({ addresses: newAddresses, editingKey: '' });
+                }).catch((err) => {
+                    console.log(err);
+                })
             } else {
                 newAddresses.push(row);
                 this.setState({ addresses: newAddresses, editingKey: '' });
