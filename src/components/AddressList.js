@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Table, Button, Popconfirm } from 'antd';
-import { getAddresses, deleteAddress, updateAddress } from './api';
+import { getAddresses, deleteAddress, updateAddress, createAddress } from './api';
 import { EditableCell, EditableFormRow, EditableContext } from './EditableTable';
 
 
@@ -60,6 +60,7 @@ export class AddressList extends Component {
                 console.log(record)
                 console.log(id)
                 const editable = this.isEditing(record);
+
                 return (
                   <div>
                     {editable ? (
@@ -117,12 +118,17 @@ export class AddressList extends Component {
 
     isEditing = (record) => record.id === this.state.editingKey;
 
-    cancelEdit = () => {
+    cancelEdit = (id) => {
+        if (id === 'new') {
+            this.setState({
+                addresses: this.state.addresses.filter((address) => address.id !== 'new')
+            })
+        } 
         this.setState({ editingKey: '' });
     };
 
     edit = (id) => {
-        this.setState({ editingKey: id }, () => console.log(id, this.state));
+        this.setState({ editingKey: id });
     }
 
     saveEdit = (form, id) => {
@@ -133,28 +139,48 @@ export class AddressList extends Component {
 
             const newAddresses = [...this.state.addresses];
             const index = newAddresses.findIndex(item => id === item.id);
+
             if (index > -1) {
                 const item = newAddresses[index];
-                newAddresses.splice(index, 1, {
-                    ...item,
-                    ...row,
-                });
 
-                updateAddress(
-                    item.id, row
-                ).then((res) => {
-                    this.setState({ addresses: newAddresses, editingKey: '' });
-                }).catch((err) => {
-                    console.log(err);
-                })
-            } else {
-                newAddresses.push(row);
-                this.setState({ addresses: newAddresses, editingKey: '' });
-            }
+                if (id !== 'new') {
+                    updateAddress(
+                        item.id, row
+                    ).then((res) => {
+                        newAddresses.splice(index, 1, {
+                            ...item,
+                            ...row,
+                        });
+                        this.setState({ addresses: newAddresses, editingKey: '' });
+                    }).catch((err) => {
+                        console.log(err);
+                    })        
+                } else {
+                    createAddress(
+                        row
+                    ).then((res) => {
+                        let newAddress = res.data
+                        newAddresses.splice(index, 1, {
+                            ...item,
+                            ...newAddress,
+                        });
+                        this.setState({ addresses: newAddresses, editingKey: '' });
+                    }).catch((err) => {
+                        console.log(err);
+                    })
+                }
+            } 
+            // else {
+            //     newAddresses.push(newAddress);
+            //     this.setState({ addresses: newAddresses, editingKey: '' });
+            // }
         });
     }
 
     handleAdd = () => {
+        if (this.state.editingKey === 'new') {
+            return
+        }
         const { addresses } = this.state;
         const newAddress = {
           fullname: '',
@@ -165,9 +191,12 @@ export class AddressList extends Component {
           state: '',
           zipcode: '',
           country: '',
+          id: 'new',
         };
         this.setState({
             addresses: [...addresses, newAddress],
+        }, () => {
+            this.edit('new')
         });
     }
 

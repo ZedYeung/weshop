@@ -56,6 +56,10 @@ export const updateAddress = (addressID, params) => {
     return axios.patch(`${local_host}/address/${addressID}/`, params)
 }
 
+export const createAddress = (params) => {
+    return axios.post(`${local_host}/address/`, params)
+}
+
 export const getCart = () => {
     return axios.get(`${local_host}/cart/`)
 }
