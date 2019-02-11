@@ -1,14 +1,84 @@
 import React, { Component } from 'react';
-import { Table, Button } from 'antd';
-import { Link } from 'react-router-dom'
+import { Table, Button, Popconfirm } from 'antd';
 import { getAddresses, deleteAddress } from './api';
+import { EditableCell, EditableFormRow, EditableContext } from './EditableTable';
 
 
 export class AddressList extends Component {
-    state = {
-        addresses: [],
-    }
+    constructor(props) {
+        super(props);
+        this.state = {
+            addresses: [],
+            editingKey: '',
+        }
 
+        this.columns = [{
+            title: 'Fullname',
+            dataIndex: 'fullname',
+            editable: true,
+        }, {
+            title: 'Phone',
+            dataIndex: 'phone',
+            editable: true,
+        }, {
+            title: 'Address1',
+            dataIndex: 'address1',
+            editable: true,
+        }, {
+            title: 'Address2',
+            dataIndex: 'address2',
+            editable: true,
+        }, {
+            title: 'City',
+            dataIndex: 'city',
+            editable: true,
+        }, {
+            title: 'State',
+            dataIndex: 'state',
+            editable: true,
+        }, {
+            title: 'Zipcode',
+            dataIndex: 'zipcode',
+            editable: true,
+        }, {
+            title: 'Country',
+            dataIndex: 'country',
+            editable: true,
+        }, {
+            title: 'Action',
+            dataIndex: 'id',
+            render: (id, record) => {
+                const editable = this.isEditing(record);
+                return (
+                  <div>
+                    {editable ? (
+                      <div>
+                        <EditableContext.Consumer>
+                          {form => (
+                            <Button onClick={() => this.saveEdit(form, record.key)}>
+                                Save
+                            </Button>
+                          )}
+                        </EditableContext.Consumer>
+                        <Popconfirm
+                          title="Sure to cancel?"
+                          onConfirm={() => this.cancelEdit(record.key)}
+                        >
+                          <Button>Cancel</Button>
+                        </Popconfirm>
+                      </div>
+                    ) : (
+                        <div>
+                            <Button onClick={() => this.edit(record.key)}>Edit</Button>
+                            <Button onClick={(e) => this.handleDelete(id, e)} >Delete</Button>
+                        </div>
+                    )}
+
+                  </div>
+            )
+                    }
+        }];
+    }
     componentDidMount() {
         getAddresses(
 
@@ -34,38 +104,66 @@ export class AddressList extends Component {
         })
     }
 
+    isEditing = (record) => record.key === this.state.editingKey;
+
+    cancelEdit = () => {
+        this.setState({ editingKey: '' });
+    };
+
+    edit = (key) => {
+        this.setState({ editingKey: key });
+    }
+
+    saveEdit = (form, key) => {
+        form.validateFields((error, row) => {
+            if (error) {
+                return;
+            }
+            const newAddresses = [...this.state.addresses];
+            const index = newAddresses.findIndex(item => key === item.key);
+            if (index > -1) {
+                const item = newAddresses[index];
+                newAddresses.splice(index, 1, {
+                    ...item,
+                    ...row,
+                });
+                this.setState({ addresses: newAddresses, editingKey: '' });
+            } else {
+                newAddresses.push(row);
+                this.setState({ addresses: newAddresses, editingKey: '' });
+            }
+        });
+    }
+
     render() {
-        const columns = [{
-            title: 'Address1',
-            dataIndex: 'address1'
-        }, {
-            title: 'Address2',
-            dataIndex: 'address2',
-        }, {
-            title: 'City',
-            dataIndex: 'city'
-        }, {
-            title: 'State',
-            dataIndex: 'state'
-        }, {
-            title: 'Zipcode',
-            dataIndex: 'zipcode'
-        }, {
-            title: 'Country',
-            dataIndex: 'country'
-        }, {
-            title: 'Action',
-            dataIndex: 'id',
-            render: (id, record) => (
-                <Button onClick={(e) => this.handleDelete(id, e)} >
-                    Delete
-                </Button>
-            )
-        }];
+        const components = {
+            body: {
+              row: EditableFormRow,
+              cell: EditableCell,
+            },
+          };
+
+        const columns = this.columns.map((col) => {
+            if (!col.editable) {
+              return col;
+            }
+            return {
+              ...col,
+              onCell: record => ({
+                record,
+                inputType: 'text',
+                dataIndex: col.dataIndex,
+                title: col.title,
+                editing: this.isEditing(record),
+              }),
+            };
+          });
 
         return (
             <Table
                 className="address-table"
+                components={components}
+                rowClassName="editable-row"
                 rowKey={record => record.id} 
                 columns={columns}
                 dataSource={this.state.addresses}
