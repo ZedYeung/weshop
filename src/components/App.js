@@ -8,8 +8,6 @@ import { Cart } from './Cart';
 import { Login } from './Login';
 import { Register } from './Register';
 import { Member } from './Member';
-import { OrderList } from './OrderList';
-import { Order } from './Order';
 import { Thankyou } from './Thankyou';
 import { Footer } from './Footer';
 import { TOKEN_KEY } from '../.env'
@@ -36,10 +34,6 @@ class App extends Component {
 
   getProduct = (props) => {
       return <Product productID={props.match.params && props.match.params.productID }/>
-  }
-
-  getOrder = (props) => {
-    return <Order orderID={props.match.params && props.match.params.orderID }/>
   }
 
   render() {

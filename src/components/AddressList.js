@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Button, Popconfirm, Radio } from 'antd';
+import { Table, Button, Popconfirm } from 'antd';
 import { getAddresses, deleteAddress, updateAddress, createAddress } from './api';
 import { EditableCell, EditableFormRow, EditableContext } from './EditableTable';
 
@@ -231,7 +231,6 @@ export class AddressList extends Component {
         this.setState({
             defaultAddress: id
         }, () => {
-            console.log(record)
             this.props.setAddress(record);
         })
     }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route, Link, BrowserHistory } from 'react-router-dom'
+import { Switch, Route, Link } from 'react-router-dom'
 import { Menu, Layout } from 'antd';
 import { UserProfile } from './UserProfile';
 import { Cart } from './Cart';
@@ -30,7 +30,6 @@ export class Member extends Component {
     }
 
   handleClick = (e) => {
-    console.log('click ', e);
     this.setState({
       current: e.key,
     });

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Table } from 'antd';
-import { Checkout } from './Checkout';
 
 export class OrderAddress extends Component {
     render () {

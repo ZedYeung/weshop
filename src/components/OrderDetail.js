@@ -55,7 +55,7 @@ export class OrderDetail extends Component {
 
         return (
             <div>
-                {this.state.deleted == false ? (
+                {this.state.deleted === false ? (
                     <Table
                         title={() => 'Order Info'}
                         className="order-detail-table"
