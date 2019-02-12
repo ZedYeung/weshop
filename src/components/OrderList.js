@@ -38,7 +38,7 @@ export class OrderList extends Component {
             title: 'ID',
             dataIndex: 'order_id',
             render: (order_id, record) => (
-                <Link to={`/order/${record.id}`}>
+                <Link to={`/member/order/${record.id}`}>
                     {order_id}
                 </Link>
             ),
