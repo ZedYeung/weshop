@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, InputNumber,  Button, Row, Col, Card } from 'antd';
+import { Table, InputNumber,  Button, Row, Col, Card, Popconfirm } from 'antd';
 import { Link } from 'react-router-dom'
 import { getCart, deleteCart, updateCart } from './api';
 import { Checkout } from './Checkout';
@@ -86,9 +86,12 @@ export class Cart extends Component {
             title: 'Action',
             dataIndex: 'product.id',
             render: (id, record) => (
-                <span>
-                    <Button onClick={(e) => this.handleDelete(id, e)} >Delete</Button>
-                </span>
+                <Popconfirm
+                    title="Sure to cancel?"
+                    onConfirm={() => this.handleDelete(id)}
+                >
+                    <Button type="danger">Delete</Button>
+                </Popconfirm>
             )
         }];
 
