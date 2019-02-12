@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from rest_framework import generics, mixins, viewsets
+from rest_framework.throttling import UserRateThrottle
 from rest_framework_extensions.cache.mixins import CacheResponseMixin
 from .models import Category, Product
 from .filter import ProductFilter
@@ -16,6 +17,7 @@ class ProductViewSet(CacheResponseMixin, mixins.ListModelMixin, mixins.RetrieveM
     Product
     """
     queryset = Product.objects.all()
+    throttle_classes = (UserRateThrottle, )
     serializer_class = ProductSerializer
     pagination_class = ProductPagination
     filter_class = ProductFilter
