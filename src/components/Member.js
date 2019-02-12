@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route, Link } from 'react-router-dom'
+import { Switch, Route, Link, BrowserHistory } from 'react-router-dom'
 import { Menu, Layout } from 'antd';
 import { UserProfile } from './UserProfile';
 import { Cart } from './Cart';
@@ -12,8 +12,22 @@ const { Sider, Content } = Layout
 
 export class Member extends Component {
   state = {
-    current: 'profile',
+    // current: "profile"
+    current: null,
   }
+
+    componentDidMount() {
+        let pathnames = this.props.location.pathname.split("/")
+        let pathname = "profile"
+
+        if (pathnames.length > 2 && pathnames[2] !== "") {
+            pathname = pathnames[2]
+        } 
+        
+        this.setState({
+            current: pathname,
+        })
+    }
 
   handleClick = (e) => {
     console.log('click ', e);
