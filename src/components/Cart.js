@@ -96,30 +96,33 @@ export class Cart extends Component {
         }];
 
         return (
-            <Row gutter={6} className="cart">
-                <Col span={20}>
-                    <Table
-                        className="cart-table"
-                        rowKey={record => record.product.id} 
-                        columns={columns}
-                        dataSource={this.state.cart}
-                        footer={(data) => (
-                            console.log(data)
-                        )}
-                    />
-                </Col>
-                <Col span={3}>
-                    <Card className="checkout-form-card"
-                        title={`$${this.getSubtotal()}`}
-                    >
-                        <Checkout amount={this.getSubtotal()} />
-                        
-                        <Link to="/">
-                            <Button className="checkout-form-button" block>Shopping</Button>
-                        </Link>
-                    </Card>
-                </Col>
-            </Row>
+            <div style={this.props.style} >
+                <Row gutter={6}>
+                    <Col span={20}>
+                        <Table
+                            className="cart-table"
+                            rowKey={record => record.product.id} 
+                            columns={columns}
+                            dataSource={this.state.cart}
+                            // footer={(data) => (
+                            //     console.log(data)
+                            // )}
+                        />
+                    </Col>
+                    <Col span={3}>
+                        <Card className="checkout-form-card"
+                            title={`$${this.getSubtotal()}`}
+                        >
+                            <Checkout amount={this.getSubtotal()} />
+                            
+                            <Link to="/">
+                                <Button className="checkout-form-button" block>Shopping</Button>
+                            </Link>
+                        </Card>
+                    </Col>
+                </Row>
+            </div>
+
         )
     }
 }

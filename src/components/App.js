@@ -47,7 +47,7 @@ class App extends Component {
               <Route path="/register" component={Register}/>
               <Route path="/login" render={this.getLogin}/>
               <Route path="/member" component={Member} /> 
-              <Route path="/cart" component={Cart} />
+              <Route path="/cart" render={(props) => <Cart style={{marginLeft: '5%', marginTop: '40px', marginRight: '5%'}}/>} /> />
               <Route path="/thankyou" component={Thankyou} />
               <Route path="/product/:productID" render={this.getProduct} /> 
               <Route component={ProductList} />

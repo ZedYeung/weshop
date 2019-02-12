@@ -71,9 +71,9 @@ export class OrderList extends Component {
                 rowKey={record => record.order_id} 
                 columns={columns}
                 dataSource={this.state.orders}
-                footer={(data) => (
-                    console.log(data)
-            )}
+                // footer={(data) => (
+                //     console.log(data)
+                // )}
         />
         )
     }
