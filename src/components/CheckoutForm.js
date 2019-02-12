@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { CardElement, injectStripe } from 'react-stripe-elements';
+import {   
+    CardElement,
+    injectStripe 
+} from 'react-stripe-elements';
 import { Redirect } from 'react-router-dom'
 import { message, Button } from 'antd';
 import { AddressList } from './AddressList';
@@ -12,7 +15,7 @@ class CheckoutForm extends Component {
         orderID: this.props.orderID,
     }
 
-    
+  
     handleCheckout = (e) => {
         e.preventDefault();
 
@@ -88,17 +91,30 @@ class CheckoutForm extends Component {
             shipping_address: Object.assign({}, ...Object.keys(address).map(k => ({["shipping_" + k]: address[k]})))
         })
     }
-
+      
     render() {
+        const cardStyle = {
+            base: {
+                fontSize: "20px",
+                color: '#424770',
+                fontFamily: 'Source Code Pro, monospace',
+                '::placeholder': {
+                    color: '#aab7c4',
+                },
+            },
+                invalid: {
+                color: '#9e2146',
+            },
+        }
+
         return (
             <div>
                 {this.state.status === "succeeded" ? <Redirect to="/thankyou" /> : (
-                    <form className="checkout">
-                        <AddressList setAddress={this.setAddress} />
-                        <CardElement />
+                    <form className="checkout" onSubmit={this.handleCheckout}>
+                        <AddressList setAddress={this.setAddress} size="small" />
+                            <CardElement style={cardStyle} />
                         <Button
                             block type="primary"
-                            onClick={this.handleCheckout}
                             style={{marginTop: '20px'}}>
                             Confirm
                         </Button>

@@ -57,7 +57,7 @@ export class Member extends Component {
                             <Route exact path="/member" component={UserProfile} />
                             <Route exact path="/member/profile" component={UserProfile} />
                             <Route path="/member/cart" component={Cart} />
-                            <Route path="/member/address" component={AddressList} />
+                            <Route path="/member/address" render={(props) => <AddressList size="middle" />} />
                             <Route exact path="/member/order" component={OrderList} />
                             <Route path="/member/order/:orderID" render={this.getOrder} /> 
                             <Route component={UserProfile} />

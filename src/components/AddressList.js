@@ -259,10 +259,12 @@ export class AddressList extends Component {
             <Table
                 className="address-table"
                 components={components}
+                size={this.props.size} 
                 rowClassName="editable-row"
                 rowKey={record => record.id} 
                 columns={columns}
                 dataSource={this.state.addresses}
+                pagination={{hideOnSinglePage: true}}
                 footer={(data) => (
                     <Button onClick={this.handleAdd} type="primary" style={{ marginBottom: 16 }}>
                         Add Address
