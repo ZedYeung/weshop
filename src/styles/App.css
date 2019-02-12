@@ -10,7 +10,8 @@
 @import 'Cart.css';
 @import 'Order.css';
 @import 'Shopping.css';
-@import 'OrderDetailList.css';
+@import 'OrderDetail.css';
+@import 'OrderAddress.css';
 @import 'OrderProductList.css';
 @import 'UserProfile.css';
 @import 'Address.css';
