@@ -90,13 +90,18 @@ export class AddressList extends Component {
                           title="Sure to cancel?"
                           onConfirm={() => this.cancelEdit(id)}
                         >
-                          <Button>Cancel</Button>
+                          <Button type="danger">Cancel</Button>
                         </Popconfirm>
                       </div>
                     ) : (
                         <div>
                             <Button onClick={() => this.edit(id)}>Edit</Button>
-                            <Button onClick={(e) => this.handleDelete(id, e)} >Delete</Button>
+                            <Popconfirm
+                                title="Sure to cancel?"
+                                onConfirm={() => this.handleDelete(id)}
+                            >
+                                <Button type="danger">Delete</Button>
+                            </Popconfirm>
                         </div>
                     )}
 
@@ -117,7 +122,7 @@ export class AddressList extends Component {
         })
     }
 
-    handleDelete = (addressID, e) => {
+    handleDelete = (addressID) => {
         deleteAddress (
             addressID
         ).then((res) => {
