@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Button, Popconfirm } from 'antd';
+import { Table, Button, Popconfirm, Radio } from 'antd';
 import { getAddresses, deleteAddress, updateAddress, createAddress } from './api';
 import { EditableCell, EditableFormRow, EditableContext } from './EditableTable';
 
@@ -10,9 +10,25 @@ export class AddressList extends Component {
         this.state = {
             addresses: [],
             editingKey: '',
+            defaultAddress: null,
         }
 
         this.columns = [{
+            title: 'Default',
+            dataIndex: 'id',
+            key: "default",
+            editable: false,
+            render: (id, record) => {
+                return (
+                    <Button
+                        shape="circle"
+                        type={this.state.defaultAddress === id ? "primary" : "default"}
+                        size="small"
+                        onClick={() => this.setDefault(id, record)}>
+                    </Button>
+                )
+            }
+        }, {
             title: 'Fullname',
             dataIndex: 'fullname',
             key: "fullname",
@@ -57,8 +73,6 @@ export class AddressList extends Component {
             dataIndex: 'id',
             key: "id",
             render: (id, record) => {
-                console.log(record)
-                console.log(id)
                 const editable = this.isEditing(record);
 
                 return (
@@ -95,7 +109,6 @@ export class AddressList extends Component {
         getAddresses(
 
         ).then((res) => {
-            console.log(res)
             this.setState({
                 addresses: res.data,
             })
@@ -164,7 +177,16 @@ export class AddressList extends Component {
                             ...item,
                             ...newAddress,
                         });
-                        this.setState({ addresses: newAddresses, editingKey: '' });
+                        this.setState({
+                            addresses: newAddresses,
+                            editingKey: '' ,
+                        });
+
+                        if (this.state.defaultAddress == null) {
+                            this.setState({
+                                defaultAddress: res.data.id
+                            })
+                        }
                     }).catch((err) => {
                         console.log(err);
                     })
@@ -198,6 +220,15 @@ export class AddressList extends Component {
         }, () => {
             this.edit('new')
         });
+    }
+
+    setDefault = (id, record) => {
+        this.setState({
+            defaultAddress: id
+        }, () => {
+            console.log(record)
+            this.props.setAddress(record);
+        })
     }
 
     render() {

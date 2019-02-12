@@ -29,6 +29,7 @@ export class Checkout extends Component {
                 
                     <Modal
                         title="Checkout"
+                        width={900}
                         visible={this.state.visible}
                         onCancel={this.handleCancel}
                         footer={null}
