@@ -55,8 +55,6 @@ class App extends Component {
               <Route path="/member" component={Member} /> 
               <Route path="/cart" component={Cart} />
               <Route path="/thankyou" component={Thankyou} />
-              <Route exact path="/order" component={OrderList} />
-              <Route path="/order/:orderID" render={this.getOrder} /> 
               <Route path="/product/:productID" render={this.getProduct} /> 
               <Route component={ProductList} />
           </Switch>
