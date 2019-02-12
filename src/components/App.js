@@ -44,7 +44,7 @@ class App extends Component {
           <Switch>
               {/* <Route exact path="/" render={this.getMain} /> */}
               <Route exact path="/" component={ProductList} />
-              <Route path="/register" component={Register}/>
+              <Route path="/register" render={(props) => <Register {...props} handleLogin={this.handleLogin} /> } />
               <Route path="/login" render={this.getLogin}/>
               <Route path="/member" component={Member} /> 
               <Route path="/cart" render={(props) => <Cart style={{marginLeft: '5%', marginTop: '40px', marginRight: '5%'}}/>} /> />
