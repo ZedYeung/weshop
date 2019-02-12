@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from rest_framework import generics, mixins, viewsets
+from rest_framework_extensions.cache.mixins import CacheResponseMixin
 from .models import Category, Product
 from .filter import ProductFilter
 from .paginator import ProductPagination
@@ -10,7 +11,7 @@ from .serializers import CategorySerializer, ProductSerializer
 
 
 # Create your views here.
-class ProductViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class ProductViewSet(CacheResponseMixin, mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
     Product
     """
@@ -23,7 +24,7 @@ class ProductViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.
     ordering_fields = ('price', 'created')
 
 
-class CategoryViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class CategoryViewSet(CacheResponseMixin, mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
     Category
     """
