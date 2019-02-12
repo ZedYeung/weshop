@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Button } from 'antd';
+import { Table, Button, Popconfirm } from 'antd';
 import { Link } from 'react-router-dom'
 import { getOrders, deleteOrder } from './api';
 
@@ -56,11 +56,12 @@ export class OrderList extends Component {
             title: 'Action',
             dataIndex: 'id',
             render: (id, record) => (
-                <Button
-                    onClick={(e) => this.handleDelete(id, e)}
+                <Popconfirm
+                    title="Sure to cancel?"
+                    onConfirm={() => this.handleDelete(id)}
                 >
-                    Cancel
-                </Button>
+                    <Button type="danger">Cancel</Button>
+                </Popconfirm>
             )
         }];
 

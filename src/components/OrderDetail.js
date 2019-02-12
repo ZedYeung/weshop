@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom'
-import { Table, Button } from 'antd';
+import { Redirect } from 'react-router-dom'
+import { Table, Button, Popconfirm } from 'antd';
 import { Checkout } from './Checkout';
 import { deleteOrder } from './api';
 
@@ -8,7 +8,7 @@ export class OrderDetail extends Component {
     state = {
         deleted: false
     }
-    handleDelete = (orderID, e) => {
+    handleDelete = (orderID) => {
         deleteOrder(
             orderID
         ).then((res) => {
@@ -43,12 +43,13 @@ export class OrderDetail extends Component {
         }, {
             title: 'Action',
             dataIndex: 'id',
-            render: (id, record) => (
-                <Button
-                    onClick={(e) => this.handleDelete(id, e)}
+            render: (id) => (
+                <Popconfirm
+                    title="Sure to cancel?"
+                    onConfirm={() => this.handleDelete(id)}
                 >
-                    Cancel
-                </Button>
+                    <Button type="danger">Cancel</Button>
+                </Popconfirm>
             )
         }];
 
