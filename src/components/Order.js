@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { OrderProductList } from './OrderProductList';
-import { OrderDetailList } from './OrderDetailList';
+import { OrderDetail } from './OrderDetail';
 import { getOrder } from './api';
 
 
@@ -25,7 +25,7 @@ export class Order extends Component {
         const { order } = this.state
         return (
             <div>
-                <OrderDetailList orderDetail={order && [order]} />
+                <OrderDetail orderDetail={order && [order]} />
                 <OrderProductList products={order && order.product}/>
             </div>
         )

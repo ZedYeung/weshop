@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Table } from 'antd';
 import { Checkout } from './Checkout';
 
-export class OrderDetailList extends Component {
+export class OrderDetail extends Component {
     render () {
         const columns = [{
             title: 'ID',
@@ -28,14 +28,12 @@ export class OrderDetailList extends Component {
         return (
 
             <Table
-                title={() => 'Order Detail'}
+                title={() => 'Order Info'}
                 className="order-detail-table"
                 rowKey={record => record.id} 
                 columns={columns}
                 dataSource={this.props.orderDetail}
-                footer={(data) => (
-                    console.log(data)
-                )}
+                pagination={false}
             />
         )
     }
