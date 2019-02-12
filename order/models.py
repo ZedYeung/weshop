@@ -26,7 +26,7 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     # shipping information
-    shipping_name = models.CharField(max_length=30, blank=True)
+    shipping_fullname = models.CharField(max_length=30, blank=True)
     shipping_address1 = models.CharField(max_length=30, blank=True)
     shipping_address2 = models.CharField(max_length=30, null=True, blank=True)
     shipping_city = models.CharField(max_length=30, blank=True)
