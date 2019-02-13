@@ -10,10 +10,11 @@ import { STRIPE_PUBLISHABLE_KEY } from './.env';
 
 ReactDOM.render(
     <BrowserRouter>
+      <StripeProvider apiKey={STRIPE_PUBLISHABLE_KEY}>
         <CookiesProvider>
-          <StripeProvider apiKey={STRIPE_PUBLISHABLE_KEY}>
-            <App />
-          </StripeProvider>
+          <App />
         </CookiesProvider>
+      </StripeProvider>
+
     </BrowserRouter>, document.getElementById('root'));
 serviceWorker.register();

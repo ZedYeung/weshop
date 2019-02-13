@@ -110,12 +110,15 @@ class CheckoutForm extends Component {
         return (
             <div>
                 {this.state.status === "succeeded" ? <Redirect to="/thankyou" /> : (
-                    <form className="checkout" onSubmit={this.handleCheckout}>
+                    // <form className="checkout" onSubmit={this.handleCheckout}>
+                    <form className="checkout" >
                         <AddressList setAddress={this.setAddress} size="small" />
                             <CardElement style={cardStyle} />
                         <Button
                             block type="primary"
-                            style={{marginTop: '20px'}}>
+                            style={{marginTop: '20px'}}
+                            onClick={this.handleCheckout}
+                        >
                             Confirm
                         </Button>
                     </form>
