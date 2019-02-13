@@ -1,15 +1,15 @@
-.product-list {
-    min-width: 80%;
+.products-main {
     margin-left: 5%;
     margin-right: 5%;
-    margin-top: 40px;
+    margin-top: 40px;  
+}
+
+.product-list {
+    min-width: 50%;
 }
 
 .product-search {
     max-width: 50%;
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-top: 40px;
 }
 
 .filter {
