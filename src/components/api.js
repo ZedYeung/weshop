@@ -98,5 +98,6 @@ export const checkout = (params) => {
     return axios.post(`${local_host}/checkout/`, params)
 }
 
-export const loginAmazon = `${local_host}/login/amazon`
-export const loginGoogle = `${local_host}/login/google-oauth2`
+export const loginAmazon = `${local_host}/login/amazon/`
+export const loginGoogle = `${local_host}/login/google-oauth2/`
+export const loginTwitter = `${local_host}/login/twitter/`
