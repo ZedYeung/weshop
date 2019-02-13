@@ -2,7 +2,7 @@
 import React from 'react';
 import { Form, Icon, Input, Button } from 'antd';
 import { Link } from 'react-router-dom'
-import { login, loginGoogle } from './api'
+import { login, loginAmazon, loginGoogle } from './api'
 
 //  https://ant.design/components/form/
 
@@ -52,9 +52,12 @@ class NormalLoginForm extends React.Component {
                     Or <Link to="/register">register now!</Link>
                 </FormItem>
                 <FormItem>
-                <a href={loginGoogle}>
+                <Button href={loginAmazon}>
+                    <Icon type="amazon" />
+                </Button>
+                <Button href={loginGoogle}>
                     <Icon type="google" />
-                </a>
+                </Button>
                 </FormItem>
             </Form>
             </div>
