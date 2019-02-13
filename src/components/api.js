@@ -1,12 +1,14 @@
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 import { AUTH_PREFIX, TOKEN_KEY } from '../.env';
 
 const local_host = "http://localhost:8000";
 
 axios.interceptors.request.use(
     (config) => {
-        if (!! localStorage.getItem(TOKEN_KEY)) {
-            config.headers.Authorization = `${AUTH_PREFIX} ${localStorage.getItem(TOKEN_KEY)}`;
+        const cookies = new Cookies();
+        if (!! cookies.get(TOKEN_KEY)) {
+            config.headers.Authorization = `${AUTH_PREFIX} ${cookies.get(TOKEN_KEY)}`;
         }
         return config;
     }, (err) => {
@@ -95,3 +97,5 @@ export const createOrder = (params) => {
 export const checkout = (params) => {
     return axios.post(`${local_host}/checkout/`, params)
 }
+
+export const loginGoogle = `${local_host}/login/google-oauth2`
