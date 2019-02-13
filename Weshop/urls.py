@@ -38,6 +38,7 @@ router.register(r'order', OrderViewset, basename='order')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+    path('', include('social_django.urls', namespace='social')),
     path('login/', obtain_jwt_token),
     path('checkout/', CheckoutView.as_view(), name="checkout"),
     path('docs/', include_docs_urls(title="Documentation")),
