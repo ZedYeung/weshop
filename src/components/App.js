@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom'
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 import '../styles/App.css';
 import { Header } from './Header';
 import { ProductList } from './ProductList';
@@ -14,17 +16,23 @@ import { TOKEN_KEY } from '../.env'
 
 
 class App extends Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  };
+
   state = {
-    isLoggedIn: !! localStorage.getItem(TOKEN_KEY),
+    isLoggedIn: !! this.props.cookies.get(TOKEN_KEY),
   }
 
   handleLogin = (res) => {
-      localStorage.setItem(TOKEN_KEY, res.data.token);
-      this.setState({isLoggedIn:true});
+    console.log(this.props.cookies)
+    this.props.cookies.set(TOKEN_KEY, res.data.token, { path: '/', maxAge: 3600 * 24 });
+    // this.props.cookies.set(TOKEN_KEY, res.data.token, { path: '/', httpOnly: true, maxAge: 3600 * 24 });
+    this.setState({isLoggedIn:true});
   }
 
   handleLogout = () =>{
-      localStorage.removeItem(TOKEN_KEY);
+    this.props.cookies.remove(TOKEN_KEY);
       this.setState({isLoggedIn: false});
   }
 
@@ -58,4 +66,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withCookies(App);
