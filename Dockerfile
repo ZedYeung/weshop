@@ -1,0 +1,8 @@
+FROM nginx:1.15.8
+
+COPY ./build /usr/local/weshop-frontend/
+
+COPY default.conf.template /etc/nginx/conf.d/default.conf.template
+COPY nginx.conf /etc/nginx/nginx.conf
+
+CMD /bin/bash -c "envsubst '\$PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf" && nginx -g 'daemon off;'
