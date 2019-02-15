@@ -7,7 +7,7 @@ const {
   
   module.exports = override(
     fixBabelImports("antd-css", {
-        libraryName: "antd", style: "css" // change importing css to less
+        libraryName: "antd", style: "css" // import css on demand
       }),
     fixBabelImports("antd-less", {
       libraryName: "antd", libraryDirectory: "es", style: true // change importing css to less
