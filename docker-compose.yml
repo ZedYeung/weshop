@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres:11.2-alpine
+    volumes:
+      - weshop_postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=weshop
+  backend:
+    build: .
+    # command: python /usr/local/weshop-backend/manage.py runserver 0.0.0.0:8001
+    command: gunicorn Weshop.wsgi:application --bind 0.0.0.0:8001
+    volumes:
+      - ./:/usr/local/weshop-backend
+    ports:
+      - 8001:8001
+    environment:
+      - SECRET_KEY=qs(qih1plsr&9%^mnpl($pixljb^b10j#ew_i$xqe5yg$$jsyo
+      - SQL_ENGINE=django.db.backends.postgresql_psycopg2
+      - SQL_DATABASE=weshop
+      - SQL_USER=postgres
+      - SQL_PASSWORD=postgres
+      - SQL_HOST=db
+      - SQL_PORT=5432
+      - DATABASE=postgres
+    depends_on:
+      - db
+
+volumes:
+  weshop_postgres_data:
