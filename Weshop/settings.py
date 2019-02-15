@@ -12,10 +12,11 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import datetime
-
+import sys
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+sys.path.insert(0, BASE_DIR)
+sys.path.insert(0, os.path.join(BASE_DIR, 'extra_apps'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -44,11 +45,15 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'corsheaders',
+    'social_django',
+    'social_core',
     # 'rest_framework.authtoken',
     # apps
     'shop',
     'user',
+    'address',
     'cart',
+    'order',
 ]
 
 MIDDLEWARE = [
@@ -76,6 +81,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -93,14 +100,15 @@ WSGI_APPLICATION = 'Weshop.wsgi.application'
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'weshop',
-        'USER': 'weshop',
-        'PASSWORD': 'weshop',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': os.getenv('SQL_ENGINE', 'django.db.backends.postgresql_psycopg2'),
+        'NAME': os.getenv('SQL_DATABASE', 'weshop'),
+        'USER': os.getenv('SQL_USER', 'postgres'),
+        'PASSWORD': os.getenv('SQL_PASSWORD', 'postgres'),
+        'HOST': os.getenv('SQL_HOST', 'localhost'),
+        'PORT': os.getenv('SQL_PORT', '5432'),
     }
 }
 
@@ -141,6 +149,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -155,7 +164,58 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 #     ),
 # }
 
+# rate limiter
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_THROTTLE_CLASSES': (
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '10/minute',
+        'user': '20/minute'
+    }
+}
+
+# JWT
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }
+
+# Cache
+REST_FRAMEWORK_EXTENSIONS = {
+    'DEFAULT_CACHE_RESPONSE_TIMEOUT': 10
+}
+
+# Stripe payment test key
+STRIPE_PUBLISHABLE_KEY = 'pk_test_ymeXCP5L9odEHTb0Pos6Y2S3'
+STRIPE_SECRET_KEY = 'sk_test_EydgGkrZ49EhIaWOCbif0Rtc'
+
+# social login
+SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.open_id.OpenIdAuth',
+    'social_core.backends.amazon.AmazonOAuth2',
+    'social_core.backends.google.GoogleOpenId',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.google.GoogleOAuth',
+    'social_core.backends.twitter.TwitterOAuth',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_AMAZON_KEY = 'amzn1.application-oa2-client.40cfdf2399ca4e52a1bbf10406f23189'
+SOCIAL_AUTH_AMAZON_SECRET = '4b16576ac1f1bdfb3174c1c4180a79cadfc4a01f36b4983b313433bd89b540bf'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "390995012086-tj80q7isoq8bg9rrkfav04oej7kqjvf2.apps.googleusercontent.com"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "aWBDomQs2IfaDFf1HpeEsXh7"
+
+SOCIAL_AUTH_TWITTER_KEY = 'DENeXHL5hyBpP4oGALnTO0nFP'
+SOCIAL_AUTH_TWITTER_SECRET = 'sVGrj7u6TCNuzzIKlI6x16em5HUMsclRj7eje5MNzOh0HyuTHn'
+
+# SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'http://localhost:3000'
