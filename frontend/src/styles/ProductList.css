@@ -1,0 +1,17 @@
+.products-main {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 40px;  
+}
+
+.product-list {
+    min-width: 50%;
+}
+
+.product-search {
+    max-width: 50%;
+}
+
+.filter {
+    margin-bottom: 20px;
+}
