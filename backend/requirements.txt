@@ -1,0 +1,30 @@
+# auto generated
+Django==2.1.5
+drf_extensions==0.4.0
+requests_oauthlib==1.0.0
+djangorestframework_jwt==1.11.0
+django_filter==2.1.0
+oauthlib==2.1.0
+# requests==2.21.0
+# onelogin 1.5.3 has requirement requests==2.20.1, but you'll have requests 2.21.0 which is incompatible.
+requests==2.20.1
+cryptography==2.2.2
+six==1.11.0
+django_filters==0.2.1
+httpretty==0.9.6
+jose==1.0.0
+PyJWT==1.7.1
+mock==2.0.0
+onelogin==1.5.3
+python_openid==2.2.5
+djangorestframework==3.9.1
+unittest2==1.1.0
+# mannually add
+social-auth-app-django==3.1.0
+psycopg2-binary==2.7.7
+django-crispy-forms==1.7.2
+coreapi==2.3.3
+django-cors-headers==2.4.0
+stripe==2.21.0
+Pillow==5.4.1
+gunicorn==19.9.0
