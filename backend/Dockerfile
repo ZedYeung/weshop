@@ -7,8 +7,6 @@ ENV PYTHONUNBUFFERED 1
 # set work directory
 WORKDIR /usr/local/weshop-backend
 
-COPY . /usr/local/weshop-backend
-
 # install dependencies
 RUN apk update \
     && apk add --virtual build-deps gcc python3-dev musl-dev \
@@ -24,9 +22,12 @@ RUN apk update \
       tcl-dev \
       harfbuzz-dev \
       fribidi-dev \
-    && pip install --upgrade pip \
-    && pip install -r requirements.txt \
-    && apk del build-deps
+    && pip install --upgrade pip
+
+COPY . /usr/local/weshop-backend
+
+RUN pip install -r requirements.txt \
+  && apk del build-deps
 
 # run entrypoint.sh
 ENTRYPOINT ["/usr/local/weshop-backend/entrypoint.sh"]
