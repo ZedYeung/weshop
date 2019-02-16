@@ -1,15 +1,15 @@
 # auto generated
-Django==2.1.5
+Django==2.1.7
 drf_extensions==0.4.0
-requests_oauthlib==1.0.0
+requests_oauthlib==1.2.0
 djangorestframework_jwt==1.11.0
 django_filter==2.1.0
-oauthlib==2.1.0
+oauthlib==3.0.1
 # requests==2.21.0
 # onelogin 1.5.3 has requirement requests==2.20.1, but you'll have requests 2.21.0 which is incompatible.
-requests==2.20.1
-cryptography==2.2.2
-six==1.11.0
+requests==2.21.0
+cryptography==2.5
+six==1.12.0
 django_filters==0.2.1
 httpretty==0.9.6
 jose==1.0.0
