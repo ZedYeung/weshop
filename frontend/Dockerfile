@@ -1,5 +1,5 @@
 # Stage 1
-FROM node:9.6.1 as react-build
+FROM node:10.15.1 as react-build
 WORKDIR /usr/local/weshop-frontend/
 COPY ./ /usr/local/weshop-frontend/
 RUN yarn && yarn build
@@ -11,4 +11,4 @@ COPY --from=react-build /usr/local/weshop-frontend/build /usr/share/nginx/html
 
 COPY nginx.conf.template /etc/nginx/nginx.conf.template
 
-CMD /bin/bash -c "envsubst '\$PORT' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf" && nginx -g 'daemon off;'
+CMD /bin/bash -c "envsubst '\$OUT_PORT' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf" && nginx -g 'daemon off;'
