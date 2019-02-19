@@ -1,6 +1,20 @@
+data "template_file" "myapp" {
+  template = "${file("${path.module}/aws_ecs_myapp_task.json")}"
+
+  vars {
+    frontend_url     = "${aws_ecr_repository.frontend.repository_url}"
+    backend_url      = "${aws_ecr_repository.backend.repository_url}"
+    token            = "${var.token}"
+    log_group_region = "${var.aws_region}"
+    log_group_name   = "${aws_cloudwatch_log_group.app.name}"
+    db_password      = "${var.db_password}"
+    django_secret_key = ${var.django_secret_key}
+  }
+}
+
 resource "aws_ecs_task_definition" "myapp" {
   family                = "myapp_task"
-  container_definitions = "${file("aws_ecs_task_definition.json")}"
+  container_definitions = "${data.template_file.myapp.rendered}"
 
   volume {
       name = "Postgres_Data"
