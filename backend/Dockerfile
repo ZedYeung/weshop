@@ -29,5 +29,7 @@ COPY . /usr/local/weshop-backend
 RUN pip install -r requirements.txt \
   && apk del build-deps
 
+EXPOSE 8001
+
 # run entrypoint.sh
 ENTRYPOINT ["/usr/local/weshop-backend/entrypoint.sh"]
