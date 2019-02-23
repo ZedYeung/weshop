@@ -22,12 +22,12 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'extra_apps'))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'qs(qih1plsr&9%^mnpl($pixljb^b10j#ew_i$xqe5yg$$jsyo'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'backend']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'backend', os.getenv('AWS_ALB'), os.getenv('DOMAIN')]
 
 AUTH_USER_MODEL = 'user.User'
 
@@ -218,4 +218,4 @@ SOCIAL_AUTH_TWITTER_KEY = 'DENeXHL5hyBpP4oGALnTO0nFP'
 SOCIAL_AUTH_TWITTER_SECRET = 'sVGrj7u6TCNuzzIKlI6x16em5HUMsclRj7eje5MNzOh0HyuTHn'
 
 # SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'http://localhost:3000'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = os.getenv('FRONTEND_URL', 'http://localhost:3000')
