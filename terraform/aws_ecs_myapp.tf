@@ -5,10 +5,12 @@ data "template_file" "myapp" {
     frontend_url     = "${aws_ecr_repository.frontend.repository_url}"
     backend_url      = "${aws_ecr_repository.backend.repository_url}"
     token            = "${var.token}"
+    aws_alb          = "${aws_alb.alb-ecs-app.dns_name}"
+    domain           = "${var.app_domain}"
     log_group_region = "${var.aws_region}"
     log_group_name   = "${aws_cloudwatch_log_group.app.name}"
     db_password      = "${var.db_password}"
-    django_secret_key = ${var.django_secret_key}
+    django_secret_key = "${var.django_secret_key}"
   }
 }
 
@@ -68,6 +70,7 @@ resource "aws_ecs_service" "myapp" {
   depends_on = [
     "aws_iam_role_policy.ecs_service",
     "aws_alb_listener.app_front_end",
+    "aws_alb_listener.app_front_end_https"
   ]
 }
 

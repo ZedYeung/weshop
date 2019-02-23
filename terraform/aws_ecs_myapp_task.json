@@ -46,6 +46,14 @@
                 {
                     "name": "TOKEN",
                     "value": "${token}"
+                },
+                {
+                    "name": "AWS_ALB",
+                    "value": "${aws_alb}"
+                },
+                {
+                    "name": "DOMAIN",
+                    "value": "${domain}"
                 }
             ],
             "links": [
