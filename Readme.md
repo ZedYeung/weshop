@@ -1,5 +1,6 @@
 # Weshop
 Django and ReactJS based e-commence web application
+[Demo](https://weshop.zedyeung.com)
 
 ## Overview
 * Database: PostgreSQL
@@ -13,6 +14,7 @@ Django and ReactJS based e-commence web application
 * Automated system deployment with Nginx, Docker, Terraform on AWS EC2/ECS and ELB(load balancer)
 
 ## TODO
-* Https
+* login oauth callback nginx configure
+* django admin nginx configure
 * User Favorite list
 * Refactor with Typescript
