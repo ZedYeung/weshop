@@ -60,7 +60,7 @@ http {
             proxy_cache_bypass $http_pragma;
             proxy_cache_revalidate on;
             expires off;
-            access_log off;
+            access_log on;
             root   /usr/share/nginx/html;
             try_files $uri /index.html;
         }
