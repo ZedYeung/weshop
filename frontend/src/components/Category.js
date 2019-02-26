@@ -6,7 +6,7 @@ const TabPane = Tabs.TabPane;
 
 export class Category extends Component {
     state = {
-        categories: [],
+        categories: null,
         // isLoaded: false,
     }
 
@@ -18,6 +18,7 @@ export class Category extends Component {
         getCategories(
 
         ).then((res) => {
+          console.log(res)
             this.setState({
                 categories: res.data,
                 // isLoaded: true,
@@ -37,7 +38,7 @@ export class Category extends Component {
                 } */}
                 <TabPane tab="All" key=""></TabPane>
                 {
-                    this.state.categories.map((category) => (
+                    this.state.categories && this.state.categories.map((category) => (
                         <TabPane tab={category.name} key={category.id}></TabPane>
                     ))
                 }
