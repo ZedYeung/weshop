@@ -56,6 +56,16 @@ resource "aws_security_group" "instance_sg" {
     ]
   }
 
+  ingress {
+    protocol  = "tcp"
+    from_port = 8081
+    to_port   = 8081
+
+    security_groups = [
+      "${aws_security_group.lb_sg.id}",
+    ]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
