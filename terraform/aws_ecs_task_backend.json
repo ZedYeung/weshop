@@ -1,11 +1,5 @@
 [
         {
-            "command": [
-                "gunicorn",
-                "Weshop.wsgi:application",
-                "--bind",
-                "0.0.0.0:8001"
-            ],
             "environment": [
                 {
                     "name": "SECRET_KEY",
@@ -40,20 +34,16 @@
                     "value": "postgres"
                 },
                 {
-                    "name": "FRONTEND_URL",
-                    "value": "frontend:80"
-                },
-                {
-                    "name": "TOKEN",
-                    "value": "${token}"
-                },
-                {
                     "name": "AWS_ALB",
                     "value": "${aws_alb}"
                 },
                 {
-                    "name": "DOMAIN",
-                    "value": "${domain}"
+                    "name": "FRONTEND_DOMAIN",
+                    "value": "${frontend_domain}"
+                },
+                {
+                    "name": "BACKEND_DOMAIN",
+                    "value": "${backend_domain}"
                 }
             ],
             "links": [
@@ -61,14 +51,18 @@
             ],
             "essential": true,
             "memory": 128,
-            "image": "${backend_url}",
+            "image": "${dockerhub_user}/${app}_backend_django:latest",
             "mountPoints": [
+                {
+                    "containerPath": "/usr/local/weshop-backend/static",
+                    "sourceVolume": "Static_Volume"
+                },
                 {
                     "containerPath": "/usr/local/weshop-backend/media",
                     "sourceVolume": "Media_Volume"
                 }
             ],
-            "name": "backend",
+            "name": "django",
             "portMappings": [
                 {
                     "containerPort": 8001
@@ -118,31 +112,31 @@
         {
             "environment": [
                 {
-                    "name": "OUT_PORT",
+                    "name": "PORT",
                     "value": "80"
-                },
-                {
-                    "name": "TOKEN",
-                    "value": "${token}"
                 }
             ],
             "links": [
-              "backend"
+              "django"
             ],
             "essential": true,
             "memory": 64,
-            "image": "${frontend_url}",
+            "image": "${dockerhub_user}/${app}_backend_nginx:latest",
             "mountPoints": [
+                {
+                    "containerPath": "/usr/local/weshop-backend/static",
+                    "sourceVolume": "Static_Volume"
+                },
                 {
                     "containerPath": "/usr/local/weshop-backend/media",
                     "sourceVolume": "Media_Volume"
                 }
             ],
-            "name": "frontend",
+            "name": "nginx",
             "portMappings": [
                 {
                     "containerPort": 80,
-                    "hostPort": 8080
+                    "hostPort": 8081
                 }
             ],
             "logConfiguration": {
