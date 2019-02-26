@@ -4,6 +4,8 @@ FROM python:3.7-alpine
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+EXPOSE 8081
+
 # set work directory
 WORKDIR /usr/local/weshop-backend
 
@@ -29,7 +31,11 @@ COPY . /usr/local/weshop-backend
 RUN pip install -r requirements.txt \
   && apk del build-deps
 
-EXPOSE 8001
-
 # run entrypoint.sh
 ENTRYPOINT ["/usr/local/weshop-backend/entrypoint.sh"]
+
+# run django
+# python /usr/local/weshop-backend/manage.py runserver 0.0.0.0:8001
+CMD gunicorn Weshop.wsgi:application --bind 0.0.0.0:8001
+
+
