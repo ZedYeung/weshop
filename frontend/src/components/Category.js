@@ -18,7 +18,6 @@ export class Category extends Component {
         getCategories(
 
         ).then((res) => {
-          console.log(res)
             this.setState({
                 categories: res.data,
                 // isLoaded: true,
