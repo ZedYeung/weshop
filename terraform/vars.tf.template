@@ -108,6 +108,10 @@ variable "DATABASE" {
   default = "${DATABASE}"
 }
 
+variable "REDIS_PASSWORD" {
+  default = "${REDIS_PASSWORD}"
+}
+
 variable "SOCIAL_AUTH_AMAZON_KEY" {
   default = "${SOCIAL_AUTH_AMAZON_KEY}"
 }
