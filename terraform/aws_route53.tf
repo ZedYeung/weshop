@@ -1,6 +1,6 @@
 resource "aws_route53_record" "frontend" {
   zone_id = "${var.route53_zone_id}"
-  name    = "${var.frontend_domain}"
+  name    = "${var.FRONTEND}"
   type    = "A"
 
   alias {
@@ -16,7 +16,7 @@ resource "aws_route53_record" "frontend" {
 
 resource "aws_route53_record" "backend" {
   zone_id = "${var.route53_zone_id}"
-  name    = "${var.backend_domain}"
+  name    = "${var.BACKEND}"
   type    = "A"
 
   alias {
