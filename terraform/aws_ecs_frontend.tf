@@ -2,25 +2,26 @@ data "template_file" "frontend" {
   template = "${file("${path.module}/aws_ecs_task_frontend.json")}"
 
   vars {
-    app              = "${var.app}"
-    dockerhub_user   = "${var.dockerhub_user}"
-    backend_domain   = "${var.backend_domain}"
+    APP              = "${var.APP}"
+    BACKEND          = "${var.BACKEND}"
+    PORT             = "${var.PORT}"
+    DOCKERHUB_USER   = "${var.DOCKERHUB_USER}"
     log_group_region = "${var.aws_region}"
     log_group_name   = "${aws_cloudwatch_log_group.app.name}"
   }
 }
 
 resource "aws_ecs_task_definition" "frontend" {
-  family                = "${var.app}"
+  family                = "frontend"
   container_definitions = "${data.template_file.frontend.rendered}"
 
   provisioner "local-exec" {
-    command     = "docker build -t ${var.dockerhub_user}/${var.app}_frontend:latest ../frontend"
+    command     = "docker build -t ${var.DOCKERHUB_USER}/${var.APP}_frontend:latest ${path.module}/../frontend"
     interpreter = ["bash", "-c"]
   }
 
   provisioner "local-exec" {
-    command     = "docker push ${var.dockerhub_user}/${var.app}_frontend:latest"
+    command     = "docker push ${var.DOCKERHUB_USER}/${var.APP}_frontend:latest"
     interpreter = ["bash", "-c"]
   }
 }
@@ -41,7 +42,7 @@ resource "aws_ecs_service" "frontend" {
   depends_on = [
     "aws_iam_role_policy.ecs_service",
     "aws_alb_listener.frontend",
-    "aws_alb_listener.frontend_https"
+    "aws_alb_listener.frontend_https",
   ]
 }
 
