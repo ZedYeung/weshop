@@ -197,6 +197,7 @@ STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
 
 # social login
 SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True if os.getenv('FRONTEND') else False
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.open_id.OpenIdAuth',
