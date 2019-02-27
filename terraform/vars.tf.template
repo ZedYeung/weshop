@@ -1,0 +1,145 @@
+# aws
+variable "aws_access_key" {
+  default = "${aws_access_key}"
+}
+
+variable "aws_secret_key" {
+  default = "${aws_secret_key}"
+}
+
+variable "admin_public_key" {
+  default = "${admin_public_key}"
+}
+
+variable "route53_zone_id" {
+  description = "Route53 hosted zone id for domain"
+  default     = "${route53_zone_id}"
+}
+
+variable "aws_region" {
+  default = "${aws_region}"
+}
+
+variable "az_qty" {
+  description = "Number of zones into region"
+  default     = "2"
+}
+
+variable "admin_cidr" {
+  default     = "0.0.0.0/0"
+  description = "CIDR to allow tcp/22 ingress to ecs instances"
+}
+
+variable "instance_type" {
+  default     = "t2.micro"
+  description = "AWS instance type"
+}
+
+variable "asg_min" {
+  description = "Min qty of servers in ASG"
+  default     = "1"
+}
+
+variable "asg_max" {
+  description = "Max qty of servers in ASG"
+  default     = "2"
+}
+
+variable "asg_desired" {
+  description = "Desired qty of servers in ASG"
+  default     = "1"
+}
+
+# domain
+variable "APP" {
+  description = "Application name"
+  default = "${APP}"
+}
+
+variable "DOMAIN" {
+  description = "Root domain"
+  default = "${DOMAIN}"
+}
+
+variable "FRONTEND" {
+  description = "Backend domain"
+  default = "${FRONTEND}"
+}
+
+variable "BACKEND" {
+  description = "Frontend domain"
+  default = "${BACKEND}"
+}
+
+variable "DOCKERHUB_USER" {
+  default = "${DOCKERHUB_USER}"
+}
+
+# backend
+variable "SECRET_KEY" {
+  default = "${SECRET_KEY}"
+}
+
+variable "SQL_ENGINE" {
+  default = "${SQL_ENGINE}"
+}
+
+variable "SQL_DATABASE" {
+  default = "${SQL_DATABASE}"
+}
+
+variable "SQL_USER" {
+  default = "${SQL_USER}"
+}
+
+variable "SQL_PASSWORD" {
+  default = "${SQL_PASSWORD}"
+}
+
+variable "SQL_HOST" {
+  default = "${SQL_HOST}"
+}
+
+variable "SQL_PORT" {
+  default = "${SQL_PORT}"
+}
+
+variable "DATABASE" {
+  default = "${DATABASE}"
+}
+
+variable "SOCIAL_AUTH_AMAZON_KEY" {
+  default = "${SOCIAL_AUTH_AMAZON_KEY}"
+}
+
+variable "SOCIAL_AUTH_AMAZON_SECRET" {
+  default = "${SOCIAL_AUTH_AMAZON_SECRET}"
+}
+
+variable "SOCIAL_AUTH_GOOGLE_OAUTH2_KEY" {
+  default = "${SOCIAL_AUTH_GOOGLE_OAUTH2_KEY}"
+}
+
+variable "SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET" {
+  default = "${SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET}"
+}
+
+variable "SOCIAL_AUTH_TWITTER_KEY" {
+  default = "${SOCIAL_AUTH_TWITTER_KEY}"
+}
+
+variable "SOCIAL_AUTH_TWITTER_SECRET" {
+  default = "${SOCIAL_AUTH_TWITTER_SECRET}"
+}
+
+variable "STRIPE_PUBLISHABLE_KEY" {
+  default = "${STRIPE_PUBLISHABLE_KEY}"
+}
+
+variable "STRIPE_SECRET_KEY" {
+  default = "${STRIPE_SECRET_KEY}"
+}
+
+variable "PORT" {
+  default = "${PORT}"
+}
