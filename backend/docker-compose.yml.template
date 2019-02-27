@@ -11,7 +11,7 @@ services:
       - POSTGRES_DB=${SQL_DATABASE}
   django:
     build: .
-    image: yeungzed/weshop_backend_django:latest
+    image: ${DOCKERHUB_USER}/weshop_backend_django:latest
     volumes:
       - ./:/usr/local/weshop-backend
       - static_volume:/usr/local/weshop-backend/static/
@@ -39,7 +39,7 @@ services:
       - db
   nginx:
     build: ./nginx
-    image: yeungzed/weshop_backend_nginx:latest
+    image: ${DOCKERHUB_USER}/weshop_backend_nginx:latest
     volumes:
       - static_volume:/usr/local/weshop-backend/static/
       - media_volume:/usr/local/weshop-backend/media/
