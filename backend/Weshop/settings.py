@@ -27,7 +27,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'backend', os.getenv('AWS_ALB'), os.getenv('BACKEND_DOMAIN'), os.getenv('FRONTEND_DOMAIN')]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'backend', os.getenv('AWS_ALB'), os.getenv('BACKEND'), os.getenv('FRONTEND')]
 
 AUTH_USER_MODEL = 'user.User'
 
@@ -192,8 +192,8 @@ REST_FRAMEWORK_EXTENSIONS = {
 }
 
 # Stripe payment test key
-STRIPE_PUBLISHABLE_KEY = 'pk_test_ymeXCP5L9odEHTb0Pos6Y2S3'
-STRIPE_SECRET_KEY = 'sk_test_EydgGkrZ49EhIaWOCbif0Rtc'
+STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY', '')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
 
 # social login
 SOCIAL_AUTH_POSTGRES_JSONFIELD = True
@@ -208,14 +208,14 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-SOCIAL_AUTH_AMAZON_KEY = 'amzn1.application-oa2-client.40cfdf2399ca4e52a1bbf10406f23189'
-SOCIAL_AUTH_AMAZON_SECRET = '4b16576ac1f1bdfb3174c1c4180a79cadfc4a01f36b4983b313433bd89b540bf'
+SOCIAL_AUTH_AMAZON_KEY = os.getenv('SOCIAL_AUTH_AMAZON_KEY', '')
+SOCIAL_AUTH_AMAZON_SECRET = os.getenv('SOCIAL_AUTH_AMAZON_SECRET', '')
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "390995012086-tj80q7isoq8bg9rrkfav04oej7kqjvf2.apps.googleusercontent.com"
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "aWBDomQs2IfaDFf1HpeEsXh7"
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY', '')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET', '')
 
-SOCIAL_AUTH_TWITTER_KEY = 'DENeXHL5hyBpP4oGALnTO0nFP'
-SOCIAL_AUTH_TWITTER_SECRET = 'sVGrj7u6TCNuzzIKlI6x16em5HUMsclRj7eje5MNzOh0HyuTHn'
+SOCIAL_AUTH_TWITTER_KEY = os.getenv('SOCIAL_AUTH_TWITTER_KEY', '')
+SOCIAL_AUTH_TWITTER_SECRET = os.getenv('SOCIAL_AUTH_TWITTER_SECRET', '')
 
 # SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = os.getenv('FRONTEND_DOMAIN', 'http://localhost:3000')
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = os.getenv('FRONTEND', 'http://localhost:8080')
