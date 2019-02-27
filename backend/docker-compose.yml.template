@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:11.2-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=${SQL_USER}
+      - POSTGRES_PASSWORD=${SQL_PASSWORD}
+      - POSTGRES_DB=${SQL_DATABASE}
+  django:
+    build: .
+    image: ${DOCKERHUB_USER}/weshop_backend_django:latest
+    volumes:
+      - ./:/usr/local/weshop-backend
+      - static_volume:/usr/local/weshop-backend/static/
+      - media_volume:/usr/local/weshop-backend/media/
+    expose:
+      - 8001
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - SQL_ENGINE=${SQL_ENGINE}
+      - SQL_DATABASE=${SQL_DATABASE}
+      - SQL_USER=${SQL_USER}
+      - SQL_PASSWORD=${SQL_PASSWORD}
+      - SQL_HOST=${SQL_HOST}
+      - SQL_PORT=${SQL_PORT}
+      - DATABASE=${DATABASE}
+      - SOCIAL_AUTH_AMAZON_KEY=${SOCIAL_AUTH_AMAZON_KEY}
+      - SOCIAL_AUTH_AMAZON_SECRET=${SOCIAL_AUTH_AMAZON_SECRET}
+      - SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=${SOCIAL_AUTH_GOOGLE_OAUTH2_KEY}
+      - SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=${SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET}
+      - SOCIAL_AUTH_TWITTER_KEY=${SOCIAL_AUTH_TWITTER_KEY}
+      - SOCIAL_AUTH_TWITTER_SECRET=${SOCIAL_AUTH_TWITTER_SECRET}
+      - STRIPE_PUBLISHABLE_KEY=${STRIPE_PUBLISHABLE_KEY}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+    depends_on:
+      - db
+  nginx:
+    build: ./nginx
+    image: ${DOCKERHUB_USER}/weshop_backend_nginx:latest
+    volumes:
+      - static_volume:/usr/local/weshop-backend/static/
+      - media_volume:/usr/local/weshop-backend/media/
+    environment:
+      - PORT=${PORT}
+    ports:
+      - 8081:80
+    depends_on:
+      - django
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:

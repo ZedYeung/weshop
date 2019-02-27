@@ -1,0 +1,182 @@
+[
+  {
+    "environment": [
+      {
+        "name": "SECRET_KEY",
+        "value": "${SECRET_KEY}"
+      },
+      {
+        "name": "SQL_ENGINE",
+        "value": "${SQL_ENGINE}"
+      },
+      {
+        "name": "SQL_DATABASE",
+        "value": "${SQL_DATABASE}"
+      },
+      {
+        "name": "SQL_USER",
+        "value": "${SQL_USER}"
+      },
+      {
+        "name": "SQL_PASSWORD",
+        "value": "${SQL_PASSWORD}"
+      },
+      {
+        "name": "SQL_HOST",
+        "value": "${SQL_HOST}"
+      },
+      {
+        "name": "SQL_PORT",
+        "value": "${SQL_PORT}"
+      },
+      {
+        "name": "DATABASE",
+        "value": "${DATABASE}"
+      },
+      {
+        "name": "SOCIAL_AUTH_AMAZON_KEY",
+        "value": "${SOCIAL_AUTH_AMAZON_KEY}"
+      },
+      {
+        "name": "SOCIAL_AUTH_AMAZON_SECRET",
+        "value": "${SOCIAL_AUTH_AMAZON_SECRET}"
+      },
+      {
+        "name": "SOCIAL_AUTH_GOOGLE_OAUTH2_KEY",
+        "value": "${SOCIAL_AUTH_GOOGLE_OAUTH2_KEY}"
+      },
+      {
+        "name": "SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET",
+        "value": "${SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET}"
+      },
+      {
+        "name": "SOCIAL_AUTH_TWITTER_KEY",
+        "value": "${SOCIAL_AUTH_TWITTER_KEY}"
+      },
+      {
+        "name": "SOCIAL_AUTH_TWITTER_SECRET",
+        "value": "${SOCIAL_AUTH_TWITTER_SECRET}"
+      },
+      {
+        "name": "STRIPE_PUBLISHABLE_KEY",
+        "value": "${STRIPE_PUBLISHABLE_KEY}"
+      },
+      {
+        "name": "STRIPE_SECRET_KEY",
+        "value": "${STRIPE_SECRET_KEY}"
+      },
+      {
+        "name": "FRONTEND",
+        "value": "${FRONTEND}"
+      },
+      {
+        "name": "BACKEND",
+        "value": "${BACKEND}"
+      },
+      {
+        "name": "AWS_ALB",
+        "value": "${aws_alb}"
+      }
+    ],
+    "links": [
+      "db"
+    ],
+    "essential": true,
+    "memory": 128,
+    "image": "${DOCKERHUB_USER}/${APP}_backend_django:latest",
+    "mountPoints": [
+      {
+        "containerPath": "/usr/local/weshop-backend/static",
+        "sourceVolume": "Static_Volume"
+      },
+      {
+        "containerPath": "/usr/local/weshop-backend/media",
+        "sourceVolume": "Media_Volume"
+      }
+    ],
+    "name": "django",
+    "portMappings": [
+      {
+        "containerPort": 8001
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${log_group_name}",
+        "awslogs-region": "${log_group_region}"
+      }
+    }
+  },
+  {
+    "environment": [
+      {
+        "name": "POSTGRES_USER",
+        "value": "${SQL_USER}"
+      },
+      {
+        "name": "POSTGRES_PASSWORD",
+        "value": "${SQL_PASSWORD}"
+      },
+      {
+        "name": "POSTGRES_DB",
+        "value": "${SQL_DATABASE}"
+      }
+    ],
+    "essential": true,
+    "memory": 256,
+    "image": "postgres:11.2-alpine",
+    "mountPoints": [
+      {
+        "containerPath": "/var/lib/postgresql/data/",
+        "sourceVolume": "Postgres_Data"
+      }
+    ],
+    "name": "db",
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${log_group_name}",
+        "awslogs-region": "${log_group_region}"
+      }
+    }
+  },
+  {
+    "environment": [
+      {
+        "name": "PORT",
+        "value": "${PORT}"
+      }
+    ],
+    "links": [
+      "django"
+    ],
+    "essential": true,
+    "memory": 64,
+    "image": "${DOCKERHUB_USER}/${APP}_backend_nginx:latest",
+    "mountPoints": [
+      {
+        "containerPath": "/usr/local/weshop-backend/static",
+        "sourceVolume": "Static_Volume"
+      },
+      {
+        "containerPath": "/usr/local/weshop-backend/media",
+        "sourceVolume": "Media_Volume"
+      }
+    ],
+    "name": "nginx",
+    "portMappings": [
+      {
+        "containerPort": 80,
+        "hostPort": 8081
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${log_group_name}",
+        "awslogs-region": "${log_group_region}"
+      }
+    }
+  }
+]

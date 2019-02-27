@@ -2,7 +2,7 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { AUTH_PREFIX, TOKEN_KEY } from '../.env';
 
-const host = process.env.NODE_ENV === "production" ? "/api" : "http://localhost:8000";
+const host = process.env.NODE_ENV === "production" ? "/api" : "http://localhost:8081";
 
 axios.interceptors.request.use(
     (config) => {

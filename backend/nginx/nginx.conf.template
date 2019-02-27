@@ -1,0 +1,72 @@
+# https://github.com/nginxinc/docker-nginx/tree/master/mainline/alpine
+# https://github.com/rjoonas/heroku-docker-nginx-example
+
+user  nginx;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    # upstream django {
+    #     server django:8001;
+    # }
+
+    server {
+        listen $PORT default_server;
+
+        set $proxy_host $host;
+        if ($host = "localhost") {
+          set $proxy_host $http_host;
+        }
+
+        location / {
+          add_header Access-Control-Allow-Origin *;
+          add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+          add_header Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
+
+          if ($request_method = 'OPTIONS') {
+              return 204;
+          }
+          proxy_pass http://django:8001;
+
+          proxy_set_header        Host $proxy_host;
+          proxy_set_header        X-Real-IP $remote_addr;
+          proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header        X-Forwarded-Proto $scheme;
+          proxy_redirect off;
+        }
+
+        location /health {
+          access_log off;
+          return 200;
+        }
+
+        location /static/ {
+            alias /usr/local/weshop-backend/static/;
+        }
+
+        location /media/ {
+            alias /usr/local/weshop-backend/media/;
+        }
+    }
+}
