@@ -11,6 +11,7 @@ data "template_file" "backend" {
     SQL_PORT                         = "${var.SQL_PORT}"
     DATABASE                         = "${var.DATABASE}"
     REDIS_PASSWORD                   = "${var.REDIS_PASSWORD}"
+    SENTRY_DSN                       = "${var.SENTRY_DSN}"
     SOCIAL_AUTH_AMAZON_KEY           = "${var.SOCIAL_AUTH_AMAZON_KEY}"
     SOCIAL_AUTH_AMAZON_SECRET        = "${var.SOCIAL_AUTH_AMAZON_SECRET}"
     SOCIAL_AUTH_GOOGLE_OAUTH2_KEY    = "${var.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY}"

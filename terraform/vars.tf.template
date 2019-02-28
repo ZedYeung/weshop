@@ -112,6 +112,10 @@ variable "REDIS_PASSWORD" {
   default = "${REDIS_PASSWORD}"
 }
 
+variable "SENTRY_DSN" {
+  default = "${SENTRY_DSN}"
+}
+
 variable "SOCIAL_AUTH_AMAZON_KEY" {
   default = "${SOCIAL_AUTH_AMAZON_KEY}"
 }

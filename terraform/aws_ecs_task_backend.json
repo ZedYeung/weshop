@@ -34,6 +34,14 @@
         "value": "${DATABASE}"
       },
       {
+        "name": "REDIS_PASSWORD",
+        "value": "${REDIS_PASSWORD}"
+      },
+      {
+        "name": "SENTRY_DSN",
+        "value": "${SENTRY_DSN}"
+      },
+      {
         "name": "SOCIAL_AUTH_AMAZON_KEY",
         "value": "${SOCIAL_AUTH_AMAZON_KEY}"
       },
