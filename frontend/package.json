@@ -4,6 +4,7 @@
   "private": true,
   "author": "Yue Yang",
   "dependencies": {
+    "@sentry/browser": "^4.6.4",
     "antd": "^3.13.0",
     "axios": "^0.18.0",
     "react": "^16.8.1",

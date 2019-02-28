@@ -1,14 +1,13 @@
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-import { AUTH_PREFIX, TOKEN_KEY } from '../.env';
 
 const host = process.env.NODE_ENV === "production" ? "/api" : "http://localhost:8081";
 
 axios.interceptors.request.use(
     (config) => {
         const cookies = new Cookies();
-        if (!! cookies.get(TOKEN_KEY)) {
-            config.headers.Authorization = `${AUTH_PREFIX} ${cookies.get(TOKEN_KEY)}`;
+        if (!! cookies.get(process.env.TOKEN_KEY)) {
+            config.headers.Authorization = `${process.env.AUTH_PREFIX} ${cookies.get(process.env.TOKEN_KEY)}`;
         }
         return config;
     }, (err) => {

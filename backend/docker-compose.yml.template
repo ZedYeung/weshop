@@ -9,6 +9,9 @@ services:
       - POSTGRES_USER=${SQL_USER}
       - POSTGRES_PASSWORD=${SQL_PASSWORD}
       - POSTGRES_DB=${SQL_DATABASE}
+  redis:
+    image: 'redis:5.0.3-alpine'
+    command: redis-server --requirepass ${REDIS_PASSWORD}
   django:
     build: .
     image: ${DOCKERHUB_USER}/weshop_backend_django:latest
@@ -27,6 +30,8 @@ services:
       - SQL_HOST=${SQL_HOST}
       - SQL_PORT=${SQL_PORT}
       - DATABASE=${DATABASE}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - SENTRY_DSN=${SENTRY_DSN}
       - SOCIAL_AUTH_AMAZON_KEY=${SOCIAL_AUTH_AMAZON_KEY}
       - SOCIAL_AUTH_AMAZON_SECRET=${SOCIAL_AUTH_AMAZON_SECRET}
       - SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=${SOCIAL_AUTH_GOOGLE_OAUTH2_KEY}
@@ -37,6 +42,7 @@ services:
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
     depends_on:
       - db
+      - redis
   nginx:
     build: ./nginx
     image: ${DOCKERHUB_USER}/weshop_backend_nginx:latest
