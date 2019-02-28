@@ -20,7 +20,7 @@ http {
     log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
                       '$status $body_bytes_sent "$http_referer" '
                       '"$http_user_agent" "$http_x_forwarded_for"
-                      - $host - $http_host - $proxy_host
+                      - $host - $http_host - $proxy_host - $proxy_schema
                       ';
 
     access_log  /var/log/nginx/access.log  main;
@@ -42,10 +42,10 @@ http {
         server_name weshop.zedyeung.com;
 
         set $proxy_host $host;
-        set $proxy_schema "https";
+        set $proxy_schema https;
         if ($host = "localhost") {
           set $proxy_host $http_host;
-          set $proxy_schema "http";
+          set $proxy_schema http;
         }
 
         # proxy_set_header   HOST $proxy_host;
@@ -61,7 +61,8 @@ http {
             # proxy_pass $proxy_schema://backend/;
             # proxy_pass $scheme://backend/;
             # proxy_pass http://nginx:80/;
-            # proxy_pass http://$BACKEND/;
+            # proxy_pass https://$BACKEND/;
+            # proxy_pass $proxy_schema://$BACKEND/;
             proxy_pass https://$BACKEND/;
             # proxy_redirect https://api.weshop.zedyeung.com:443/ http://api.weshop.zedyeung.com/;
         }
